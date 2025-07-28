@@ -25,11 +25,25 @@ def main():
     # Creates a new Gemini client instance using your API key. Will use this to generate responses. #
     client = genai.Client(api_key=api_key)
 
-    game_state = "You are an AI Dungeon Master for a text-based adventure game. The adventurer's name is Thorn, he has an iron sword."
+    game_state = "You are an AI Dungeon Master for a text-based adventure game. The adventurer's name is Thorn, he has an iron sword. Keep response less than 100 words."
 
     response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state))
 
     print(response.text)
+
+
+    while True:
+
+        player_response = input("> ")
+
+        if player_response.strip().lower() in ("quit", "exit"):
+            break
+        
+        try:
+            response = client.models.generate_content(model="gemini-2.0-flash-001", contents=player_response, config=types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state))
+            print(response.text)
+        except Exception as e:
+            print(f"Error generating response: {e}")
 
 
 
