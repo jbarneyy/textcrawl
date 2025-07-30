@@ -13,4 +13,4 @@ class Character():
 
 
     def to_string(self):
-        return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Items: {", ".join(map(Item.to_string, self.items))}, Level: {self.level}"
+        return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}"
