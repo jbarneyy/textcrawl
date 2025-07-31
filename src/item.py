@@ -16,7 +16,7 @@ class Item():
         self.description = description
 
     def to_string(self):
-        return f"Item: {self.name} - {self.type} - {self.power} - {self.description}"
+        return f"Item: {self.name} - {self.type.value} - {self.power} - {self.description}"
     
     def use_item(self):
 

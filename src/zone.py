@@ -9,3 +9,6 @@ class Zone():
 
     def to_string(self):
         return f"Area: {self.name}, Description: {self.description}, Points of Interest: {", ".join(map(POI.to_string, self.points_of_interest))}"
+    
+    def distance_to_poi(self):
+        pass
