@@ -32,22 +32,6 @@ def main():
     
     player = Character("Jacko", 100, 100, None, [iron_sword], None, 5, POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [fish]))
 
-
-
-
-
-
-
-    # Reads the .env file in the root of project. Loads the variables into the environment. #
-    load_dotenv()
-
-    # Retrieves the value of GEMINI_API_KEY from the environment. Values in .env are loaded and retreived using os.environ.get() #
-    api_key = os.environ.get("GEMINI_API_KEY")
-
-    # Creates a new Gemini client instance using your API key. Will use this to generate responses. #
-    client = genai.Client(api_key=api_key)
-
-
     game_state = f"""
         You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
         Our starting zone is {start_zone.to_string()}.
@@ -57,8 +41,20 @@ def main():
         Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
     """
 
+    # Reads the .env file in the root of project. Loads the variables into the environment. #
+    load_dotenv()
 
-    response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state))
+    # Retrieves the value of GEMINI_API_KEY from the environment. Values in .env are loaded and retreived using os.environ.get() #
+    api_key = os.environ.get("GEMINI_API_KEY")
+
+    # Creates a new Gemini client instance using your API key. Will use this to generate responses. #
+    # Configure client and tools #
+    client = genai.Client(api_key=api_key)
+    tools = [available_functions]
+    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
+
+
+    response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=config)
 
     #print(response.text)
     slow_print_text(response.text, 0.02)
@@ -73,7 +69,7 @@ def main():
         
 
         try:
-            response = client.models.generate_content(model="gemini-2.0-flash-001", contents=player_response, config=types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state))
+            response = client.models.generate_content(model="gemini-2.0-flash-001", contents=player_response, config=config)
             #print(response.text)
             slow_print_text(response.text, 0.02)
             
@@ -95,6 +91,27 @@ def slow_print_text(text: str, delay: float):
     
     sys.stdout.write("\n")
 
+
+schema_grab_item = types.FunctionDeclaration(
+    name="grab_item",
+    description="Grab/pickup an item from the player/character's current POI and place it into character's inventory, if item can_pickup is true. Deletes the item from POI's list of Items.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "grab": types.Schema(
+                type=types.Type.STRING,
+                description="String representing the Item.name of the item player attempts to grab.",
+            ),
+        },
+        required=["grab"]
+    ),
+)
+
+available_functions = types.Tool(
+    function_declarations=[
+        schema_grab_item
+    ]
+)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,15 @@ class Character():
     
 
     def grab_item(self, grab: str):
+        """Grab an item from the player/character's current POI and place it into character's inventory, if item can_pickup is true. Deletes the item from POI's list of Items.
+
+        Args:
+            grab: String representing the Item.name of the item player attempts to grab.
+
+        Returns:
+            None. Item is appended to Character.items and removed from POI.items.
+        """
+
         for item in self.current_POI.items:
             if (grab.lower() == item.name.lower() and item.can_pickup):
                 self.items.append(item)
