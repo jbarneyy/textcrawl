@@ -19,3 +19,11 @@ class Character():
 
     def to_string(self):
         return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}"
+    
+
+    def grab_item(self, grab: str):
+        for item in self.current_POI.items:
+            if (grab.lower() == item.name.lower() and item.can_pickup):
+                self.items.append(item)
+                self.current_POI.items.remove(item)
+                return
