@@ -56,7 +56,8 @@ def main():
 
     response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=config)
 
-    slow_print_text(response.text, 0.02)
+    #slow_print_text(response.text, 0.02)
+    print(response.text)
 
     while True:
 
@@ -65,27 +66,20 @@ def main():
         if player_response.strip().lower() in ("quit", "exit"):
             break
 
-
         try:
             response = client.models.generate_content(model="gemini-2.0-flash-001", contents=player_response, config=config)
-            character_actions = ""
 
-            if (response.function_calls):
-                # Mutate game state based on each function in function calls, maybe one at a time? Update game state, generate new response based on new game state? #
+            candidate = response.candidates[0]
 
-                for function_call in response.function_calls:
-                    print(function_call)
-                    # call function and update game state based on function return
-                    character_actions += f"{call_function(function_call, player)} "
+            #print(f"Candidate Content Parts: {candidate.content.parts}")
 
-                    print(f"CHARACTER_ACTIONS: {character_actions}")
-                    print(f"CHARACTER STATUS: {player.to_string()}")
-                    # generate new response? Or should called function return a string describing action that occurred?
-                    
-                    # For each function return (string), append to final return string? Feed entire string as player_response to contents of response call?
+            # A part of a response is object containing different types of information. We are only interested in function_call and text.
+            part = candidate.content.parts[0]
 
-                    #
-                
+            # Logic for handling a function_call by Gemini #
+            if part.function_call is not None:
+                character_action = f"{call_function(part.function_call, player)}"
+
                 game_state = f"""
                     You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
                     Our starting zone is {start_zone.to_string()}.
@@ -95,10 +89,47 @@ def main():
                     Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
                 """
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
-                response = client.models.generate_content(model="gemini-2.0-flash-001", contents=character_actions, config=config)
+
+                print(character_action)
+                
+
+            # Logic for responding if there is not a function_call #
+            elif part.text is not None:
+                print(response.text)
 
 
-            slow_print_text(response.text, 0.02)
+
+            # character_actions = ""
+
+            # if (response.function_calls):
+            #     # Mutate game state based on each function in function calls, maybe one at a time? Update game state, generate new response based on new game state? #
+
+            #     for function_call in response.function_calls:
+                    
+            #         # call function and update game state based on function return
+            #         character_actions += f"{call_function(function_call, player)} "
+
+            #         # generate new response? Or should called function return a string describing action that occurred?
+                    
+            #         # For each function return (string), append to final return string? Feed entire string as player_response to contents of response call?
+
+            #         #
+                
+            #     game_state = f"""
+            #         You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
+            #         Our starting zone is {start_zone.to_string()}.
+
+            #         Keep responses between 20 and 120 words.
+
+            #         Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
+            #     """
+            #     config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
+            #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=character_actions, config=config)
+                
+
+
+            # #slow_print_text(response.text, 0.02)
+            # print(response.text)
             
         except Exception as e:
             print(f"Error generating response: {e}")
@@ -146,11 +177,7 @@ def call_function(function: types.FunctionCall, character: Character):
     name = function.name
 
     if (name == "grab_item"):
-        print("calling grab_item")
-        print(f"Character Current POI: {character.current_POI}")
         character.grab_item(grab=args["grab"])
-
-        print(f"Char ITEMS: {", ".join(map(Item.to_string, character.items))}")
         return f"{character.name} grabs {args["grab"]}."
 
 
