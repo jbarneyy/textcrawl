@@ -28,11 +28,13 @@ class Character():
             grab: String representing the Item.name of the item player attempts to grab.
 
         Returns:
-            None. Item is appended to Character.items and removed from POI.items.
+            True if item is picked up, False if item is not picked up. Item is appended to Character.items and removed from POI.items if True.
         """
 
         for item in self.current_POI.items:
             if (grab.lower() == item.name.lower() and item.can_pickup):
                 self.items.append(item)
                 self.current_POI.items.remove(item)
-                return
+                return True
+            
+        return False

@@ -10,4 +10,4 @@ class POI():
         self.items = items
 
     def to_string(self):
-        return f"Name: {self.name}, Description: {self.description}, Location: {self.location[0]} miles North by {self.location[1]} miles East, {", ".join(map(Item.to_string, self.items))}"
+        return f"Name: {self.name}, Description: {self.description}, Location: {self.location[0]} miles North by {self.location[1]} miles East, Items: {", ".join(map(Item.to_string, self.items))}"

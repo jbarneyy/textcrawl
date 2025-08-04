@@ -19,22 +19,16 @@ from character import Character
 from zone import Zone
 from poi import POI
 
+import init
+
 
 def main():
 
-    iron_sword = Item("iron sword", ItemType.WEAPON, 5, "A simple iron sword.")
-    fish = Item("small fish", ItemType.MISC, 0, "A small blue fish.", True)
-    mead = Item("mead", ItemType.CONSUMABLE, 0, "A delicous glass of mead.")
-
-    start_zone = Zone("Lake of Thoughts", [POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [fish]), 
-                                           POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [mead])], 
-                                           "A large still lake. The water sparkles clear and blue.")
-    
-    player = Character("Jacko", 100, 100, None, [iron_sword], None, 5, POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [fish]))
+    player = Character("Jacko", 100, 100, None, [init.IRON_SWORD], None, 5, init.LAKE_OF_THOUGHTS)
 
     game_state = f"""
         You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
-        Our starting zone is {start_zone.to_string()}.
+        Our starting zone is {init.ZONE.to_string()}.
 
         Keep responses between 20 and 120 words.
 
@@ -82,7 +76,7 @@ def main():
 
                 game_state = f"""
                     You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
-                    Our starting zone is {start_zone.to_string()}.
+                    Our starting zone is {init.ZONE.to_string()}.
 
                     Keep responses between 20 and 120 words.
 
@@ -90,46 +84,12 @@ def main():
                 """
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
 
-                print(character_action)
+                print(character_action + "\n")
                 
 
             # Logic for responding if there is not a function_call #
             elif part.text is not None:
                 print(response.text)
-
-
-
-            # character_actions = ""
-
-            # if (response.function_calls):
-            #     # Mutate game state based on each function in function calls, maybe one at a time? Update game state, generate new response based on new game state? #
-
-            #     for function_call in response.function_calls:
-                    
-            #         # call function and update game state based on function return
-            #         character_actions += f"{call_function(function_call, player)} "
-
-            #         # generate new response? Or should called function return a string describing action that occurred?
-                    
-            #         # For each function return (string), append to final return string? Feed entire string as player_response to contents of response call?
-
-            #         #
-                
-            #     game_state = f"""
-            #         You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
-            #         Our starting zone is {start_zone.to_string()}.
-
-            #         Keep responses between 20 and 120 words.
-
-            #         Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
-            #     """
-            #     config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
-            #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=character_actions, config=config)
-                
-
-
-            # #slow_print_text(response.text, 0.02)
-            # print(response.text)
             
         except Exception as e:
             print(f"Error generating response: {e}")
@@ -177,8 +137,12 @@ def call_function(function: types.FunctionCall, character: Character):
     name = function.name
 
     if (name == "grab_item"):
-        character.grab_item(grab=args["grab"])
-        return f"{character.name} grabs {args["grab"]}."
+        result = character.grab_item(grab=args["grab"])
+
+        if (result is True):
+            return f"{character.name} grabs {args["grab"]}."
+        else:
+            return f"{character.name} cannot pickup {args["grab"]}."
 
 
 if __name__ == "__main__":
