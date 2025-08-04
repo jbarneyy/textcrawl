@@ -23,7 +23,7 @@ from poi import POI
 def main():
 
     iron_sword = Item("iron sword", ItemType.WEAPON, 5, "A simple iron sword.")
-    fish = Item("small fish", ItemType.MISC, 0, "A small blue fish.")
+    fish = Item("small fish", ItemType.MISC, 0, "A small blue fish.", True)
     mead = Item("mead", ItemType.CONSUMABLE, 0, "A delicous glass of mead.")
 
     start_zone = Zone("Lake of Thoughts", [POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [fish]), 
@@ -147,6 +147,7 @@ def call_function(function: types.FunctionCall, character: Character):
 
     if (name == "grab_item"):
         print("calling grab_item")
+        print(f"Character Current POI: {character.current_POI}")
         character.grab_item(grab=args["grab"])
 
         print(f"Char ITEMS: {", ".join(map(Item.to_string, character.items))}")
