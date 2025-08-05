@@ -38,3 +38,24 @@ class Character():
                 return True
             
         return False
+    
+
+    def list_items(self):
+        """List character's current items / inventory.
+
+        Args:
+            None: No arguments needed, simply return the character's inventory with some formatting.
+
+        Returns:
+            String: A string representation of the character's inventory.
+        """
+
+        if self.items is None:
+            return f"{self.name} does not have any items."
+        
+        items_string = f"{self.name}'s Inventory:\n"
+
+        for item in self.items:
+            items_string += f"- {item.to_string()}\n"
+
+        return items_string.rstrip("\n")

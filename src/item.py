@@ -17,7 +17,7 @@ class Item():
         self.can_pickup = can_pickup
 
     def to_string(self):
-        return f"Item: {self.name} - {self.type.value} - {self.power} - {self.description}"
+        return f"{self.name} - {self.type.value} - {self.power} - {self.description}"
     
     def use_item(self):
 

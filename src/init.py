@@ -44,17 +44,17 @@ MISC = [SMALL_FISH, SMALL_STONE]
 
 
 # Initialize POIs #
-LAKE_OF_THOUGHTS = POI("Lake of Thoughts",
+LAKEFRONT = POI("Lakefront",
                 "You are under the swaying branches of a gnarled willow tree, its long silver leaves dancing in the breeze like whispers of ancient secrets. " \
-                "The Lake of Thoughts stretches before you, its surface unnaturally still — a mirror reflecting a sky streaked with lavender clouds and twin suns low on the horizon.",
+                "You can see the Lake of Thoughts before you.",
                 (0, 0),
                 populate_random_items(IRON_WEAPONS, SMALL_CONSUMABLES, MISC))
 
 
 
-# Initialize Zone #
-ZONE = Zone("Redania",
-            [LAKE_OF_THOUGHTS],
-            "Redania is a vast and ancient realm veiled in mist and myth. " \
-            "Cradled between snow-dusted mountain ridges and dense, whispering forests, its landscapes shift from crystalline lakes to windswept highlands, dotted with forgotten ruins and flickering will-o'-the-wisps. " \
-            "The air carries a scent of pine and ash, and the wind often sings old songs—echoes of a time when magic freely roamed.")
+# Initialize Zones #
+LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
+            [LAKEFRONT],
+            "The Lake of Thoughts stretches before you, its surface unnaturally still — a mirror reflecting a sky streaked with lavender clouds and twin suns low on the horizon." \
+            "There is a firm breeze in the air, yet the water remains undisturbed. The scent of wet earth and touch of cool air envelops our adventurer." \
+            "This is where our adventure begins.")
