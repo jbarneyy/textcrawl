@@ -18,7 +18,7 @@ class Character():
 
 
     def to_string(self):
-        return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}"
+        return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
     
 
     def grab_item(self, grab: str):
@@ -44,7 +44,7 @@ class Character():
         """List character's current items / inventory.
 
         Args:
-            None: No arguments needed, simply return the character's inventory with some formatting.
+            None: No arguments needed, return the character's inventory with some formatting.
 
         Returns:
             String: A string representation of the character's inventory.
@@ -59,3 +59,20 @@ class Character():
             items_string += f"- {item.to_string()}\n"
 
         return items_string.rstrip("\n")
+    
+
+    def move(self, target_location: POI):
+        """Move character from current POI to target_location POI.
+
+        Args:
+            target_location: POI object representing the target POI character is attempting to move to.
+
+        Returns:
+            Bool: True if character is able to move from current POI to target_location POI (target_location.is_open and distance is less than arbitrary value).
+        """
+
+        if (target_location.is_open is True):
+            self.current_POI = target_location
+            return True
+        else:
+            return False

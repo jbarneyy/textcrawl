@@ -67,7 +67,7 @@ def main():
             # candidate is the first (and often only) candidate. There can be multiple candidates, we are only going to have one. #
             candidate = response.candidates[0]
 
-            #print(f"Candidate Content Parts: {candidate.content.parts}")
+            print(f"Candidate Content Parts: {candidate.content.parts}\n")
 
             # A part of a response is object containing different types of information. We are only interested in function_call and text. #
             part = candidate.content.parts[0]
@@ -137,11 +137,27 @@ schema_list_items = types.FunctionDeclaration(
     ),
 )
 
+schema_move = types.FunctionDeclaration(
+    name="move",
+    description="Move character from current POI to target_location POI. Takes target POI as argument, returns True if character can move to target_location, else returns False.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "target_location": types.Schema(
+                type=types.Type.OBJECT,
+                description="Target location / POI / Point of Interest that character is attempting to move to."
+            )
+        },
+        required=["target_location"]
+    )
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
         schema_grab_item,
-        schema_list_items
+        schema_list_items,
+        schema_move
     ]
 )
 
@@ -161,6 +177,14 @@ def call_function(function: types.FunctionCall, character: Character):
         
     if (name == "list_items"):
         return character.list_items()
+    
+    if (name == "move"):
+        result = character.move(target_location=args["target_location"])
+
+        if result is True:
+            return f"{character.name} moves to {character.current_POI.name}"
+        else:
+            return f"{character.name} is unable to go there at this time."
 
 
 if __name__ == "__main__":
