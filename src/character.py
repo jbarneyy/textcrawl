@@ -1,9 +1,10 @@
 from item import Item
 from poi import POI
+from zone import Zone
 
 class Character():
 
-    def __init__(self, name: str, health: int, mana: int | None, equipment: list[Item] | None, items: list[Item] | None, quests: list | None, level: int, current_POI: POI):
+    def __init__(self, name: str, health: int, mana: int | None, equipment: list[Item] | None, items: list[Item] | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone):
         self.name = name
 
         self.health = health
@@ -14,7 +15,9 @@ class Character():
         self.quests = quests
 
         self.level = level
+        
         self.current_POI = current_POI
+        self.current_zone = current_zone
 
 
     def to_string(self):

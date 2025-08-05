@@ -63,10 +63,13 @@ MISTY_TANKARD = POI("The Misty Tankard",
                     True)
 
 
-
 # Initialize Zones #
 LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
             [LAKEFRONT, MISTY_TANKARD],
             "The Lake of Thoughts stretches before you, its surface unnaturally still — a mirror reflecting a sky streaked with lavender clouds and twin suns low on the horizon." \
             "There is a firm breeze in the air, yet the water remains undisturbed. The scent of wet earth and touch of cool air envelops our adventurer." \
             "This is where our adventure begins.")
+
+
+# Initialize Characters #
+HARKEN_BRISTLE = Character("Harken Bristle", 100, 0, None, [SMALL_HP, SMALL_MP], None, 1, MISTY_TANKARD, LAKE_OF_THOUGHTS)

@@ -5,6 +5,8 @@ from item import Item, ItemType
 from zone import Zone
 from poi import POI
 
+from gamestate import GameState
+
 
 class Test(unittest.TestCase):
     
@@ -16,12 +18,15 @@ class Test(unittest.TestCase):
         self.fish = Item("Small Fish", ItemType.MISC, 0, "A small fish.", True)
         self.mead = Item("Mead", ItemType.CONSUMABLE, 0, "A nice cool glass of mead.", True)
 
-        self.location_1 = POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [self.fish, self.health_potion])
-        self.location_2 = POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [self.mead])
+        self.location_1 = POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [self.fish, self.health_potion], True)
+        self.location_2 = POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [self.mead], True)
 
-        start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2], "A large still lake. The water sparkles clear and blue.")
+        self.start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2], "A large still lake. The water sparkles clear and blue.")
         
-        self.player = Character("Testy", 100, 100, None, [self.iron_sword], None, 5, self.location_1)
+        self.player = Character("Testy", 100, 100, None, [self.iron_sword], None, 5, self.location_1, self.start_zone)
+        self.npc_1 = Character("Harken Bristle", 100, 0, None, [self.mead, self.mead], None, 1, self.location_2, self.start_zone)
+
+        self.game_state = GameState([self.start_zone], [self.location_1, self.location_2], [self.npc_1], [self.iron_sword, self.torch, self.fish], self.player)
 
     
     def test_simple(self):
@@ -38,3 +43,6 @@ class Test(unittest.TestCase):
 
         print(f"Player after grab: {self.player.to_string()}")
         print(f"POI after grab: {self.location_1.to_string()}")
+
+    def test_gamestate(self):
+        print(self.game_state.print_pois())

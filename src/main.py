@@ -20,20 +20,13 @@ from zone import Zone
 from poi import POI
 
 import init
-
+from gamestate import GameState
 
 def main():
 
-    player = Character("Jacko", 100, 100, None, [init.IRON_SWORD], None, 5, init.LAKEFRONT)
+    player = Character("Jacko", 100, 100, None, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
-    game_state = f"""
-        You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
-        Our zone is {init.LAKE_OF_THOUGHTS.to_string()}.
-
-        Keep responses between 20 and 120 words.
-
-        Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
-    """
+    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], items=[init.IRON_DAGGER], player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #
     load_dotenv()
@@ -45,7 +38,7 @@ def main():
     # Configure client and tools. #
     client = genai.Client(api_key=api_key)
     tools = [available_functions]
-    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
+    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
 
     response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=config)
@@ -74,17 +67,9 @@ def main():
 
             # Logic for handling a function_call by Gemini. #
             if part.function_call is not None:
-                character_action = f"{call_function(part.function_call, player)}"
+                character_action = f"{call_function(part.function_call, player, game_state)}"
 
-                game_state = f"""
-                    You are an AI Dungeon Master for a text-based adventure game. The adventurer is {player.to_string()}.
-                    Our zone is {init.LAKE_OF_THOUGHTS.to_string()}.
-
-                    Keep responses between 20 and 120 words.
-
-                    Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
-                """
-                config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state, tools=tools)
+                config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
                 print(character_action + "\n")
                 
@@ -161,7 +146,7 @@ available_functions = types.Tool(
     ]
 )
 
-def call_function(function: types.FunctionCall, character: Character):
+def call_function(function: types.FunctionCall, character: Character, game_state: GameState):
     args = function.args
     name = function.name
 
@@ -171,17 +156,23 @@ def call_function(function: types.FunctionCall, character: Character):
         result = character.grab_item(grab=args["grab"])
 
         if (result is True):
+            game_state.update_gamestate()
             return f"{character.name} grabs {args["grab"]}."
         else:
             return f"{character.name} cannot pickup {args["grab"]}."
         
     if (name == "list_items"):
+        game_state.update_gamestate()
         return character.list_items()
     
     if (name == "move"):
-        result = character.move(target_location=args["target_location"])
+        target_poi = args["target_location"]
+        target_poi_name = target_poi["Name"]
+
+        result = character.move(target_location=game_state.pois[target_poi_name])
 
         if result is True:
+            game_state.update_gamestate()
             return f"{character.name} moves to {character.current_POI.name}"
         else:
             return f"{character.name} is unable to go there at this time."
