@@ -1,5 +1,6 @@
 from poi import POI
 
+
 class Zone():
 
     def __init__(self, name: str, points_of_interest: list[POI], description: str):

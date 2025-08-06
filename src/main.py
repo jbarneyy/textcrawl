@@ -146,36 +146,38 @@ available_functions = types.Tool(
     ]
 )
 
-def call_function(function: types.FunctionCall, character: Character, game_state: GameState):
-    args = function.args
-    name = function.name
+def call_function(function: types.FunctionCall, player: Character, game_state: GameState):
+    function_args = function.args
+    function_name = function.name
 
     #print("Inside CALL_FUNCTION")
 
-    if (name == "grab_item"):
-        result = character.grab_item(grab=args["grab"])
+    if (function_name == "grab_item"):
+        result = player.grab_item(grab=function_args["grab"])
 
         if (result is True):
             game_state.update_gamestate()
-            return f"{character.name} grabs {args["grab"]}."
+            return f"{player.name} grabs {function_args["grab"]}."
         else:
-            return f"{character.name} cannot pickup {args["grab"]}."
+            return f"{player.name} cannot pickup {function_args["grab"]}."
         
-    if (name == "list_items"):
+
+    if (function_name == "list_items"):
         game_state.update_gamestate()
-        return character.list_items()
+        return player.list_items()
     
-    if (name == "move"):
-        target_poi = args["target_location"]
+    
+    if (function_name == "move"):
+        target_poi = function_args["target_location"]
         target_poi_name = target_poi["Name"]
 
-        result = character.move(target_location=game_state.pois[target_poi_name])
+        result = player.move(target_location=game_state.pois[target_poi_name])
 
         if result is True:
             game_state.update_gamestate()
-            return f"{character.name} moves to {character.current_POI.name}"
+            return f"{player.name} moves to {player.current_POI.name}"
         else:
-            return f"{character.name} is unable to go there at this time."
+            return f"{player.name} is unable to go there at this time."
 
 
 if __name__ == "__main__":

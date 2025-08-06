@@ -1,6 +1,8 @@
+
 from item import Item
 from poi import POI
 from zone import Zone
+
 
 class Character():
 
