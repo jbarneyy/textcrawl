@@ -18,8 +18,8 @@ class Test(unittest.TestCase):
         self.fish = Item("Small Fish", ItemType.MISC, 0, "A small fish.", True)
         self.mead = Item("Mead", ItemType.CONSUMABLE, 0, "A nice cool glass of mead.", True)
 
-        self.location_1 = POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [self.fish, self.health_potion], [], True)
-        self.location_2 = POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [self.mead], [], True)
+        self.location_1 = POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [self.fish, self.health_potion], True)
+        self.location_2 = POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [self.mead], True)
 
         self.start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2], "A large still lake. The water sparkles clear and blue.")
         
