@@ -1,4 +1,3 @@
-
 from item import Item
 from poi import POI
 from zone import Zone
@@ -21,7 +20,7 @@ class Character():
 
 
     def to_string(self):
-        return f"{self.name} has Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
+        return f"Character: {self.name} has Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
     
 
     def grab_item(self, grab: str):

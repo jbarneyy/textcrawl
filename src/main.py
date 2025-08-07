@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 
 from item import Item, ItemType
 from character import Character
+from player import Player
 from zone import Zone
 from poi import POI
 
@@ -24,7 +25,9 @@ from gamestate import GameState
 
 def main():
 
-    player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
+    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=5, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS)
+
+    #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
     game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], items=[init.IRON_DAGGER], player=player)
 

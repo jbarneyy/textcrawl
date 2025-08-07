@@ -2,13 +2,14 @@ from zone import Zone
 from poi import POI
 from item import Item
 from character import Character
+from player import Player
 
 import init
 
 
 class GameState():
 
-    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, items: list[Item] | None, player: Character):
+    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, items: list[Item] | None, player: Player):
 
         self.zones: dict[str, Zone] = {}
         self.pois: dict[str, POI] = {}
