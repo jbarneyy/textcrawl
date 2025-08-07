@@ -23,8 +23,8 @@ class Test(unittest.TestCase):
 
         self.start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2], "A large still lake. The water sparkles clear and blue.")
         
-        self.player = Character("Testy", 100, 100, None, [self.iron_sword], None, 5, self.location_1, self.start_zone)
-        self.npc_1 = Character("Harken Bristle", 100, 0, None, [self.mead, self.mead], None, 1, self.location_2, self.start_zone)
+        self.player = Character("Testy", 100, [self.iron_sword], None, 5, self.location_1, self.start_zone)
+        self.npc_1 = Character("Harken Bristle", 100, [self.mead, self.mead], None, 1, self.location_2, self.start_zone)
 
         self.game_state = GameState([self.start_zone], [self.location_1, self.location_2], [self.npc_1], [self.iron_sword, self.torch, self.fish], self.player)
 

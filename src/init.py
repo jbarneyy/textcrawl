@@ -72,4 +72,4 @@ LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
 
 
 # Initialize Characters #
-HARKEN_BRISTLE = Character("Harken Bristle", 100, 0, None, [SMALL_HP, SMALL_MP], None, 1, MISTY_TANKARD, LAKE_OF_THOUGHTS)
+HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], None, 1, MISTY_TANKARD, LAKE_OF_THOUGHTS)

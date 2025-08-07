@@ -24,7 +24,7 @@ from gamestate import GameState
 
 def main():
 
-    player = Character("Jacko", 100, 100, None, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
+    player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
     game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], items=[init.IRON_DAGGER], player=player)
 

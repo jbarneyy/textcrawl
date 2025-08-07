@@ -75,3 +75,6 @@ class GameState():
                 nearby_characters.append(character)
 
         return nearby_characters
+    
+    def print_pois(self):
+        print(self.pois)

@@ -6,13 +6,11 @@ from zone import Zone
 
 class Character():
 
-    def __init__(self, name: str, health: int, mana: int | None, equipment: list[Item] | None, items: list[Item] | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone):
+    def __init__(self, name: str, health: int, items: list[Item] | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone):
         self.name = name
 
         self.health = health
-        self.mana = mana
 
-        self.equipment = equipment
         self.items = items
         self.quests = quests
 
@@ -23,7 +21,7 @@ class Character():
 
 
     def to_string(self):
-        return f"{self.name} has Health: {self.health}, Mana: {self.mana}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
+        return f"{self.name} has Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
     
 
     def grab_item(self, grab: str):
