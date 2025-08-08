@@ -43,7 +43,7 @@ class GameState():
 
             Keep responses between 20 and 120 words.
 
-            Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
+            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
         """
 
     
@@ -64,7 +64,7 @@ class GameState():
 
             Keep responses between 20 and 120 words.
 
-            Try to only use information that is provided. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
+            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
         """
         return self.game_state
     
