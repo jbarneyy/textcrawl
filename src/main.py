@@ -140,16 +140,33 @@ schema_move = types.FunctionDeclaration(
     )
 )
 
+schema_equip_item = types.FunctionDeclaration(
+    name="equip_item",
+    description="Equip an item from the player's inventory into either player's armor var or player's weapon var. Item must be in inventory and of ItemType.WEAPON or ItemType.ARMOR." \
+    "If an item is already equipped, it will move the current equip into player's inventory. Returns True if item is successfully equipped to player.armor or player.weapon. False if equip is unsuccessful.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "item_name": types.Schema(
+                type=types.Type.STRING,
+                description="String representing the name of the item (Item.name) that player is attempting to equip.",
+            ),
+        },
+        required=["item_name"]
+    ),
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
         schema_grab_item,
         schema_list_items,
-        schema_move
+        schema_move,
+        schema_equip_item
     ]
 )
 
-def call_function(function: types.FunctionCall, player: Character, game_state: GameState):
+def call_function(function: types.FunctionCall, player: Player, game_state: GameState):
     function_args = function.args
     function_name = function.name
 
@@ -181,6 +198,16 @@ def call_function(function: types.FunctionCall, player: Character, game_state: G
             return f"{player.name} moves to {player.current_POI.name}"
         else:
             return f"{player.name} is unable to go there at this time."
+        
+    
+    if (function_name == "equip_item"):
+        result = player.equip_item(item_name=function_args["item_name"])
+
+        if (result is True):
+            game_state.update_gamestate()
+            return f"{player.name} equips {function_args["item_name"]}."
+        else:
+            return f"{player.name} is unable to equip that."
 
 
 if __name__ == "__main__":

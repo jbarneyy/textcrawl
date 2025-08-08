@@ -25,6 +25,7 @@ IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet."
 
 # Initalize Armor #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True)
+IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True)
 
 # Initalize Consumables #
 SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True)
@@ -60,7 +61,7 @@ MISTY_TANKARD = POI("The Misty Tankard",
                     "Shelves behind the bar are stocked with strange colored bottles, local brews, and curious herbal infusions. " \
                     "The tavern is warm and welcoming, its walls lined with faded maps, old fishing rods, and a massive mounted trout with one missing eye.",
                     (1, 0),
-                    populate_random_items(SMALL_CONSUMABLES, SMALL_CONSUMABLES, SMALL_CONSUMABLES),
+                    populate_random_items(SMALL_CONSUMABLES, SMALL_CONSUMABLES, SMALL_CONSUMABLES) + [IRON_ARMOR],
                     True)
 
 
