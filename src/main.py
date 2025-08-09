@@ -80,6 +80,7 @@ def main():
             # Logic for responding if there is not a function_call. #
             elif part.text is not None:
                 print(response.text)
+                #slow_print_text(response.text, 0.02)
             
         except Exception as e:
             print(f"Error generating response: {e}")
