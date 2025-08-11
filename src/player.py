@@ -11,9 +11,11 @@ class Player(Character):
         self.armor = armor
         self.weapon = weapon
 
+
     def to_string(self):
         return f"Player: {self.name}, Health: {self.health}, Level: {self.level}, Equipped Armor: {self.armor.to_string()}, Equipped Weapon: {self.weapon.to_string()}, \
                 Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
+    
     
     def equip_item(self, item_name: str) -> bool:
         """Equip an item from the player's inventory into either player's armor var or player's weapon var. Item must be in inventory and of ItemType.WEAPON or ItemType.ARMOR.
