@@ -3,18 +3,20 @@ from poi import POI
 from item import Item
 from character import Character
 from player import Player
+from enemy import Enemy
 
 import init
 
 
 class GameState():
 
-    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, items: list[Item] | None, player: Player):
+    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, enemies: list[Enemy] | None, items: list[Item] | None, player: Player):
 
         self.zones: dict[str, Zone] = {}
         self.pois: dict[str, POI] = {}
         self.characters: dict[str, Character] = {}
         self.items: dict[str, Item] = {}
+        self.enemies: dict[str, Enemy] = {}
         
         for zone in zones:
             self.zones[zone.name] = zone
@@ -28,6 +30,9 @@ class GameState():
         for item in items:
             self.items[item.name] = item
 
+        for enemy in enemies:
+            self.enemies[enemy.name] = enemy
+
         self.player = player
 
         self.game_state = f"""
@@ -40,6 +45,8 @@ class GameState():
             Our current POI is: {self.player.current_POI.to_string()}.
 
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
+
+            Nearby Enemies: {", ".join(map(Enemy.to_string, self.get_nearby_enemies(self.player)))}
 
             Keep responses between 20 and 120 words.
 
@@ -64,6 +71,8 @@ class GameState():
 
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
 
+            Nearby Enemies: {", ".join(map(Enemy.to_string, self.get_nearby_enemies(self.player)))}
+
             Keep responses between 20 and 120 words.
 
             Feel free to give general responses to player/character actions. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
@@ -72,7 +81,7 @@ class GameState():
         """
         return self.game_state
     
-    def get_nearby_characters(self, player: Character) -> list[Character]:
+    def get_nearby_characters(self, player: Player) -> list[Character]:
         nearby_characters = []
 
         for character in self.characters.values():
@@ -80,6 +89,16 @@ class GameState():
                 nearby_characters.append(character)
 
         return nearby_characters
+    
+    def get_nearby_enemies(self, player: Player) -> list[Enemy]:
+        nearby_enemies = []
+
+        for enemy in self.enemies.values():
+            if enemy.current_POI is player.current_POI:
+                nearby_enemies.append(enemy)
+
+        return nearby_enemies
+
     
     def print_pois(self):
         print(self.pois)

@@ -7,6 +7,7 @@ from item import Item, ItemType
 from poi import POI
 from character import Character
 from zone import Zone
+from enemy import Enemy
 
 
 def populate_random_items(*lists: list[Item]):
@@ -36,6 +37,7 @@ SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana poti
 # Initialize Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
 SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", False)
+RAT_TOOTH = Item("Rat Tooth", ItemType.MISC, None, "A crusty and bloody rat tooth.", True)
 
 
 # Group types of items together to be used in POI generation for randomness. #
@@ -75,3 +77,6 @@ LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
 
 # Initialize Characters #
 HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], None, 1, MISTY_TANKARD, LAKE_OF_THOUGHTS)
+
+# Initialize Enemies #
+GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
