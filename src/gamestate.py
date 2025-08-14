@@ -98,3 +98,27 @@ class GameState():
                 nearby_enemies.append(enemy)
 
         return nearby_enemies
+
+    def attack_enemy(self, player: Player, enemy: Enemy) -> str:
+        """Attack an enemy if player and enemy are in the same POI. Rolls one attack round of player attacking enemy and enemy attacking player.
+
+        Args:
+            player: Player object representing our player.
+            enemy: Enemy object representing the enemy our player is attacking.
+
+        Returns:
+            String representing outcome of battle.
+        """
+        if (player.current_POI is not enemy.current_POI):
+            return f"{player.name} cannot attack {enemy.name}."
+
+        player_damage = player.roll_attack()
+        enemy_damage = enemy.roll_attack()
+
+        enemy.health -= player_damage
+        player.health -= enemy_damage
+
+        if (enemy.health <= 0):
+            return f"{player.name} has defeated {enemy.name}."
+        
+        return f"{player.name} has dealt {player_damage} to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} to {player.name}."

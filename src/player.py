@@ -3,6 +3,7 @@ from item import Item, ItemType
 from poi import POI
 from zone import Zone
 
+
 class Player(Character):
 
     def __init__(self, name: str, health: int, items: list[Item] | None, armor: Item | None, weapon: Item | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone):
@@ -56,3 +57,6 @@ class Player(Character):
                 self.armor = potential_equip
                 self.items.remove(potential_equip)
             return True
+
+    def roll_attack(self):
+        return (self.level * 2) + self.weapon.power

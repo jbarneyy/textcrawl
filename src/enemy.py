@@ -11,9 +11,8 @@ class Enemy():
         self.level = level
         self.current_POI = current_POI
 
-    
     def to_string(self):
         return f"Enemy: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI.name}"
     
-
-    
+    def roll_attack(self):
+        return (self.level * 2)
