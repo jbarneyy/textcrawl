@@ -98,7 +98,3 @@ class GameState():
                 nearby_enemies.append(enemy)
 
         return nearby_enemies
-
-    
-    def print_pois(self):
-        print(self.pois)

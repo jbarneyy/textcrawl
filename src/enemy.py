@@ -13,7 +13,7 @@ class Enemy():
 
     
     def to_string(self):
-        return f"Enemy: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI}"
+        return f"Enemy: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI.name}"
     
 
     
