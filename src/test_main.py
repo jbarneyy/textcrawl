@@ -68,6 +68,16 @@ class Test(unittest.TestCase):
         # print(self.game_state.get_nearby_enemies(self.player))
         self.assertListEqual(self.game_state.get_nearby_enemies(self.player), [self.game_state.enemies["Giant Rat"]])
 
+    def test_attack_enemy(self):
+        print(self.player.to_string() + "\n")
+        print(self.enemy_1.to_string() + "\n")
+
+        self.game_state.attack_enemy(self.player, self.enemy_1)
+
+        print(self.player.to_string() + "\n")
+        print(self.enemy_1.to_string() + "\n")
+
+
     
         
 
