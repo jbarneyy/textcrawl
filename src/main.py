@@ -157,13 +157,33 @@ schema_equip_item = types.FunctionDeclaration(
     ),
 )
 
+schema_attack_enemy = types.FunctionDeclaration(
+    name="attack_enemy",
+    description="Attack an enemy if player and enemy are in the same POI. Rolls one attack round of player attacking enemy and enemy attacking player.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "player": types.Schema(
+                type=types.Type.OBJECT,
+                description="Player object representing our player from class Player()"
+            ),
+            "enemy": types.Schema(
+                type=types.Type.OBJECT,
+                description="Enemy object representing the Enemy() our player is attacking."
+            )
+        },
+        required=["player", "enemy"]
+    )
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
         schema_grab_item,
         schema_list_items,
         schema_move,
-        schema_equip_item
+        schema_equip_item,
+        schema_attack_enemy
     ]
 )
 
