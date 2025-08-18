@@ -77,6 +77,9 @@ class Test(unittest.TestCase):
         print(self.player.to_string() + "\n")
         print(self.enemy_1.to_string() + "\n")
 
+    def test_list_items(self):
+        print(self.player.list_items())
+
 
     
         
