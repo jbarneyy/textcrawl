@@ -119,6 +119,7 @@ class GameState():
         player.health -= enemy_damage
 
         if (enemy.health <= 0):
+            # Need to remove enemy from GameState() enemies dict when enemy is killed. #
             return f"{player.name} has defeated {enemy.name}."
         
         return f"{player.name} has dealt {player_damage} to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} to {player.name}."

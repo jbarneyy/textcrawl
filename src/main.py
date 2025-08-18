@@ -229,6 +229,14 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             return f"{player.name} equips {function_args["item_name"]}."
         else:
             return f"{player.name} is unable to equip that."
+        
+    if (function_name == "attack_enemy"):
+        target_enemy = function_args["enemy"]
+        target_enemy_name = target_enemy["Name"]
+
+        return_value = game_state.attack_enemy(player, game_state.enemies[target_enemy_name])
+        game_state.update_gamestate()
+        return return_value
 
 
 if __name__ == "__main__":
