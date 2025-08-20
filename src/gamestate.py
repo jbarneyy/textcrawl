@@ -82,6 +82,14 @@ class GameState():
         return self.game_state
     
     def get_nearby_characters(self, player: Player) -> list[Character]:
+        """Returns list of nearby characters by the player.
+
+        Args:
+            player: Player object representing our player.
+
+        Returns:
+            List of characters that are in the same POI as our Player object.
+        """
         nearby_characters = []
 
         for character in self.characters.values():
@@ -91,6 +99,14 @@ class GameState():
         return nearby_characters
     
     def get_nearby_enemies(self, player: Player) -> list[Enemy]:
+        """Returns list of nearby enemies by the player.
+
+        Args:
+            player: Player object representing our player.
+
+        Returns:
+            List of enemies that are in the same POI as our Player object.
+        """
         nearby_enemies = []
 
         for enemy in self.enemies.values():
