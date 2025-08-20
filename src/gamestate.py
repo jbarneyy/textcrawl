@@ -139,3 +139,17 @@ class GameState():
             return f"{player.name} has defeated {enemy.name}."
         
         return f"{player.name} has dealt {player_damage} to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} to {player.name}."
+    
+
+    def get_nearby_pois(self) -> list[POI]:
+        """Gets the three/four POIs that are nearest the Player's current POI within the current Zone.
+        Will be used when Player is looking around for nearby POIs.
+
+        Args:
+            None: Will use the only Player instance to determine current Zone / current POI.
+
+        Returns:
+            List of the three/four POIs nearest the Player.
+        """
+
+        pass
