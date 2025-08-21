@@ -234,9 +234,17 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
         target_enemy = function_args["enemy"]
         target_enemy_name = target_enemy["Name"]
 
-        return_value = game_state.attack_enemy(player, game_state.enemies[target_enemy_name])
-        game_state.update_gamestate()
-        return return_value
+
+        while True:
+            print(f"{player.name} is currently fighting {target_enemy_name}")
+            print("1) Attack or 2) Flee")
+            player_response = input("> ")
+
+            if (player_response == "2"):
+                break
+
+            print(game_state.attack_enemy(player, game_state.enemies[target_enemy_name]) + "\n")
+            game_state.update_gamestate()
 
 
 if __name__ == "__main__":
