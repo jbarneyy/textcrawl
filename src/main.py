@@ -253,13 +253,14 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     Continue attack dialogue until Player() flees or completes battle.
     """
     if (function_name == "attack_enemy"):
-        target_enemy = function_args["enemy"]
-        target_enemy_name = target_enemy["Name"]
+        
+        target_enemy_name = function_args["enemy"]["Name"]
+        target_enemy = game_state.enemies[target_enemy_name]
 
 
         while True:
-            print(f"{player.name} is currently fighting {target_enemy_name}")
-            print("1) Attack or 2) Flee")
+            print(f"{player.name} HP: {player.health} is battling {target_enemy_name} HP: {target_enemy.health}")
+            print("1) Attack or 2) Flee" + "\n")
             player_response = input("> ")
 
             if (player_response == "2"):
@@ -267,6 +268,11 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
             print(game_state.attack_enemy(player, game_state.enemies[target_enemy_name]) + "\n")
             game_state.update_gamestate()
+
+            if (target_enemy.health <= 0):
+                # GameState() needs to remove Enemy entity #
+                break
+                
 
 
 if __name__ == "__main__":

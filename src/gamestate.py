@@ -138,7 +138,7 @@ class GameState():
             # Need to remove enemy from GameState() enemies dict when enemy is killed. #
             return f"{player.name} has defeated {enemy.name}."
         
-        return f"{player.name} has dealt {player_damage} to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} to {player.name}."
+        return f"{player.name} has dealt {player_damage} damage to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} damage to {player.name}."
     
 
     def get_nearby_pois(self) -> list[POI]:
