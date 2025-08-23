@@ -193,6 +193,11 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
     #print("Inside CALL_FUNCTION")
 
+    """
+    Function call for Player() grab_item. If grab_item() is True will grab item and return.
+
+    If grab_item() is False will not call grab_item().
+    """
     if (function_name == "grab_item"):
         result = player.grab_item(grab=function_args["grab"])
 
@@ -203,11 +208,19 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             return f"{player.name} cannot pickup {function_args["grab"]}."
         
 
+    """
+    Function call for Player() list_items. Will always evaluate to True and will return list of all items in Player() inventory.
+    """
     if (function_name == "list_items"):
         game_state.update_gamestate()
         return player.list_items()
     
     
+    """
+    Function call for Player() move(). If Player() can move to listed POI will move Player().
+
+    If Player() cannot move to requested POI will not move Player().
+    """
     if (function_name == "move"):
         target_poi = function_args["target_location"]
         target_poi_name = target_poi["Name"]
@@ -221,6 +234,9 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             return f"{player.name} is unable to go there at this time."
         
     
+    """
+    Function call for Player() equip_item. If Item() is in Player() inventory and can_equip, will equip item and swap with inventory slot.
+    """
     if (function_name == "equip_item"):
         result = player.equip_item(item_name=function_args["item_name"])
 
@@ -230,6 +246,12 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
         else:
             return f"{player.name} is unable to equip that."
         
+
+    """
+    Function call for GameState() attack_enemy(). If enemy is in same POI as Player() will start attack dialogue.
+
+    Continue attack dialogue until Player() flees or completes battle.
+    """
     if (function_name == "attack_enemy"):
         target_enemy = function_args["enemy"]
         target_enemy_name = target_enemy["Name"]
