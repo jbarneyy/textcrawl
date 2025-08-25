@@ -142,14 +142,26 @@ class GameState():
     
 
     def get_nearby_pois(self) -> list[POI]:
-        """Gets the three/four POIs that are nearest the Player's current POI within the current Zone.
+        """Gets the POIs that are less than or equal to 5 distance away from Player's current POI.
         Will be used when Player is looking around for nearby POIs.
 
         Args:
             None: Will use the only Player instance to determine current Zone / current POI.
 
         Returns:
-            List of the three/four POIs nearest the Player.
+            List of the POIs nearest the Player.
         """
+        nearby_pois: list[POI] = []
 
-        pass
+        current_zone = self.player.current_zone
+        current_poi = self.player.current_POI
+
+        for target_poi in current_zone.points_of_interest:
+
+            if current_poi is not target_poi:
+                distance_to_poi = (abs(current_poi.location[0] - target_poi.location[0]) + abs(current_poi.location[1] - target_poi.location[1])) / 2
+
+                if distance_to_poi <= 5:
+                    nearby_pois.append(target_poi)
+        
+        return nearby_pois

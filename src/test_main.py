@@ -26,8 +26,9 @@ class Test(unittest.TestCase):
 
         self.location_1 = POI("Lakefront", "Our adventurer awakens on the lake.", (0, 0), [self.fish, self.torch, self.iron_armor], True)
         self.location_2 = POI("Shepard's Inn", "A small inn located near the edge of the lake.", (0, 2), [self.health_potion, self.health_potion], True)
+        self.location_3 = POI("Lake Mountains", "Mountains that reside on north side of Lake of Thoughts.", (10, 2), [self.fish], True)
 
-        self.start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2], "A large still lake. The water sparkles clear and blue.")
+        self.start_zone = Zone("Lake of Thoughts", [self.location_1, self.location_2, self.location_3], "A large still lake. The water sparkles clear and blue.")
         
         self.npc_1 = Character("Sam Wise", 100, [self.fish], None, 1, self.location_2, self.start_zone)
         self.npc_2 = Character("Harken Bristle", 100, [self.health_potion], None, 1, self.location_2, self.start_zone)
@@ -58,8 +59,8 @@ class Test(unittest.TestCase):
         
 
     def test_gamestate(self):
-        print(self.game_state.get_gamestate())
-        print("\n")
+        # print(self.game_state.get_gamestate())
+        # print("\n")
 
         # print(self.game_state.get_nearby_characters(self.player))
         # print("\n")
@@ -69,17 +70,25 @@ class Test(unittest.TestCase):
         self.assertListEqual(self.game_state.get_nearby_enemies(self.player), [self.game_state.enemies["Giant Rat"]])
 
     def test_attack_enemy(self):
-        print(self.player.to_string() + "\n")
-        print(self.enemy_1.to_string() + "\n")
+        # print(self.player.to_string() + "\n")
+        # print(self.enemy_1.to_string() + "\n")
 
         self.game_state.attack_enemy(self.player, self.enemy_1)
 
-        print(self.player.to_string() + "\n")
-        print(self.enemy_1.to_string() + "\n")
+        # print(self.player.to_string() + "\n")
+        # print(self.enemy_1.to_string() + "\n")
 
-    def test_list_items(self):
-        print(self.player.list_items())
+    # def test_list_items(self):
+    #     print(self.player.list_items())
 
+    def test_get_nearby_pois(self):
+        nearby_pois = self.game_state.get_nearby_pois()
+        self.assertListEqual(nearby_pois, [self.location_2])
+
+        self.player.move(self.location_2)
+
+        nearby_pois = self.game_state.get_nearby_pois()
+        self.assertListEqual(nearby_pois, [self.location_1, self.location_3])
 
     
         
