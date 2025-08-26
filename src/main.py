@@ -190,18 +190,18 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 break
     
 
-    if (function_name == "get_nearby_pois"):
-        nearby_poi_list = game_state.get_nearby_pois()
+    # if (function_name == "get_nearby_pois"):
+    #     nearby_poi_list = game_state.get_nearby_pois()
         
-        if len(nearby_poi_list) == 0:
-            return "There are no nearby areas for you to travel to."
+    #     if len(nearby_poi_list) == 0:
+    #         return "There are no nearby areas for you to travel to."
         
-        return_string = "You scan the horizon and are able to see:\n"
+    #     return_string = "You scan the horizon and are able to see:\n"
 
-        for current_poi in nearby_poi_list:
-            return_string += f"- {current_poi.name}\n"
+    #     for current_poi in nearby_poi_list:
+    #         return_string += f"- {current_poi.name}\n"
         
-        return return_string.rstrip("\n")
+    #     return return_string.rstrip("\n")
 
 
 if __name__ == "__main__":

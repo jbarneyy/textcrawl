@@ -92,7 +92,6 @@ available_functions = types.Tool(
         schema_list_items,
         schema_move,
         schema_equip_item,
-        schema_attack_enemy,
-        schema_get_nearby_pois
+        schema_attack_enemy
     ]
 )

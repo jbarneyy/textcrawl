@@ -56,7 +56,7 @@ class GameState():
 
             Always attempt to call function_call over returning text.
 
-            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Search for Location.
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """
 
     
@@ -85,7 +85,7 @@ class GameState():
 
             Always attempt to call function_call over returning text.
 
-            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Search for Location.
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """
         return self.game_state
     

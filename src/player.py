@@ -17,6 +17,27 @@ class Player(Character):
         return f"Player: {self.name}, Health: {self.health}, Level: {self.level}, Equipped Armor: {self.armor.to_string()}, Equipped Weapon: {self.weapon.to_string()}, \
                 Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
     
+
+    def list_items(self):
+        """List Player's current items / inventory and equipment.
+
+        Args:
+            None: No arguments needed, return the Player's inventory with some formatting.
+
+        Returns:
+            String: A string representation of the character's inventory and equipment.
+        """
+
+        if self.items is None:
+            return f"{self.name} does not have any items."
+        
+        items_string = f"{self.name}'s Inventory:\n"
+
+        for item in self.items:
+            items_string += f"- {item.to_string()}\n"
+
+        return f"{self.name}'s Equipment:\n- {self.armor.to_string()}\n- {self.weapon.to_string()}\n\n" + items_string.rstrip("\n")
+    
     
     def equip_item(self, item_name: str) -> bool:
         """Equip an item from the player's inventory into either player's armor var or player's weapon var. Item must be in inventory and of ItemType.WEAPON or ItemType.ARMOR.
