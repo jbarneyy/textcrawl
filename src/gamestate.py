@@ -44,15 +44,19 @@ class GameState():
 
             Our current POI is: {self.player.current_POI.to_string()}.
 
+            Nearby POIs are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
+
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
 
             Nearby Enemies: {", ".join(map(Enemy.to_string, self.get_nearby_enemies(self.player)))}
 
             Keep responses between 20 and 120 words.
 
-            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
+            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
 
             Always attempt to call function_call over returning text.
+
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Search for Location.
         """
 
     
@@ -69,15 +73,19 @@ class GameState():
 
             Our current POI is: {self.player.current_POI.to_string()}.
 
+            Nearby POIs are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
+
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
 
             Nearby Enemies: {", ".join(map(Enemy.to_string, self.get_nearby_enemies(self.player)))}
 
             Keep responses between 20 and 120 words.
 
-            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Do not list items near player unless they search for them. Feel free to invent smaller details.
+            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
 
             Always attempt to call function_call over returning text.
+
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Search for Location.
         """
         return self.game_state
     
@@ -158,7 +166,7 @@ class GameState():
 
         for target_poi in current_zone.points_of_interest:
 
-            if current_poi is not target_poi:
+            if current_poi is not target_poi and target_poi.is_open is True:
                 distance_to_poi = (abs(current_poi.location[0] - target_poi.location[0]) + abs(current_poi.location[1] - target_poi.location[1])) / 2
 
                 if distance_to_poi <= 5:

@@ -75,6 +75,16 @@ schema_attack_enemy = types.FunctionDeclaration(
     )
 )
 
+schema_get_nearby_pois = types.FunctionDeclaration(
+    name="get_nearby_pois",
+    description="Only call function when Player requests information on nearby areas. Player could ask what villages/places/areas/towns/locations are nearby or when Player asks where they can travel or go to.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={},
+        required=[]
+    )
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
@@ -82,6 +92,7 @@ available_functions = types.Tool(
         schema_list_items,
         schema_move,
         schema_equip_item,
-        schema_attack_enemy
+        schema_attack_enemy,
+        schema_get_nearby_pois
     ]
 )
