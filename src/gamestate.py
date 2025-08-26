@@ -42,9 +42,9 @@ class GameState():
 
             Our current Zone is: {self.player.current_zone.to_string()}.
 
-            Our current POI is: {self.player.current_POI.to_string()}.
+            Our current Point of Interest (POI) / Location is: {self.player.current_POI.to_string()}.
 
-            Nearby POIs are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
+            Nearby POIs / Areas / Villages / Towns / Locations are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
 
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
 
@@ -71,9 +71,9 @@ class GameState():
 
             Our current Zone is {self.player.current_zone.to_string()}.
 
-            Our current POI is: {self.player.current_POI.to_string()}.
+            Our current Point of Interest (POI) / Location is: {self.player.current_POI.to_string()}.
 
-            Nearby POIs are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
+            Nearby POIs / Areas / Villages / Towns / Locations are: {", ".join(map(POI.to_string, self.get_nearby_pois()))}.
 
             Nearby NPCs / Characters: {", ".join(map(Character.to_string, self.get_nearby_characters(self.player)))}
 
