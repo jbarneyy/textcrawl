@@ -77,7 +77,9 @@ def main():
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
                 print(character_action + "\n")
-                
+
+                response = client.models.generate_content(model="gemini-2.0-flash-001", contents=character_action, config=config)
+
 
             # Logic for responding if there is not a function_call. #
             elif part.text is not None:

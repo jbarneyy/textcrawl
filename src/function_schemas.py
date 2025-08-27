@@ -17,7 +17,7 @@ schema_grab_item = types.FunctionDeclaration(
 
 schema_list_items = types.FunctionDeclaration(
     name="list_items",
-    description="List/display/show character's inventory. Only call when inventory keyword is passed. Function will return a formatted string displaying the character's inventory.",
+    description="List/display/show character's inventory. Only call when 'inventory' keyword is passed. Function will return a formatted string displaying the character's inventory.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={},
