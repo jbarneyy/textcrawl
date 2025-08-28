@@ -136,8 +136,8 @@ class GameState():
         if (player.current_POI is not enemy.current_POI):
             return f"{player.name} cannot attack {enemy.name}."
 
-        player_damage = player.roll_attack()
-        enemy_damage = enemy.roll_attack()
+        player_damage = player.roll_attack() - enemy.defence
+        enemy_damage = enemy.roll_attack() - player.armor.power
 
         enemy.health -= player_damage
         player.health -= enemy_damage
