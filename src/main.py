@@ -11,6 +11,8 @@ import time
 from google import genai
 from google.genai import types
 
+from collections import deque
+
 # Load_dotenv() is used to load env variables from .env file instead of hardcoding them in. #
 from dotenv import load_dotenv
 
@@ -45,8 +47,12 @@ def main():
     tools = [available_functions]
     config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
+    # Using chat_history deque to make Gemini stateful. Will hold 20 interactions between user / model before automatically popping head of queue. #
+    chat_history = deque(maxlen=20)
 
     response = client.models.generate_content(model="gemini-2.0-flash-001", contents="Welcome the adventurer to our world.", config=config)
+
+    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
 
     #slow_print_text(response.text, 0.02)
     print(response.text)
@@ -58,9 +64,11 @@ def main():
         if player_response.strip().lower() in ("quit", "exit"):
             break
 
+        chat_history.append(types.Content(role="user", parts=[types.Part(text=f"{player_response}")]))
+
         try:
             # response is the full Gemini model response. #
-            response = client.models.generate_content(model="gemini-2.0-flash-001", contents=player_response, config=config)
+            response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
 
             # candidate is the first (and often only) candidate. There can be multiple candidates, we are only going to have one. #
             candidate = response.candidates[0]
@@ -74,15 +82,17 @@ def main():
             if part.function_call is not None:
                 character_action = f"{call_function(part.function_call, player, game_state)}"
 
+                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
+
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
                 print(character_action + "\n")
 
-                response = client.models.generate_content(model="gemini-2.0-flash-001", contents=character_action, config=config)
-
 
             # Logic for responding if there is not a function_call. #
             elif part.text is not None:
+                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
+
                 print(response.text)
                 #slow_print_text(response.text, 0.02)
             
