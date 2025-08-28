@@ -139,6 +139,9 @@ class GameState():
         player_damage = player.roll_attack() - enemy.defence
         enemy_damage = enemy.roll_attack() - player.armor.power
 
+        if (enemy_damage < 0): enemy_damage = 0
+        if (player_damage < 0): player_damage = 0
+
         enemy.health -= player_damage
         player.health -= enemy_damage
 

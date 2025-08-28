@@ -33,7 +33,11 @@ schema_move = types.FunctionDeclaration(
         properties={
             "target_location": types.Schema(
                 type=types.Type.OBJECT,
-                description="Target location / POI / Point of Interest that character is attempting to move to."
+                description="Target location / POI / Point of Interest that character is attempting to move to.",
+                properties={
+                    "Name": types.Schema(type=types.Type.STRING, description="Name of target POI / Point of Interest.")
+                },
+                required=["Name"]
             )
         },
         required=["target_location"]
@@ -68,7 +72,11 @@ schema_attack_enemy = types.FunctionDeclaration(
             ),
             "enemy": types.Schema(
                 type=types.Type.OBJECT,
-                description="Enemy object representing the Enemy() our player is attacking."
+                description="Enemy object representing the Enemy() our player is attacking.",
+                properties={
+                    "Name": types.Schema(type=types.Type.STRING, description="Name of the enemy.")
+                },
+                required=["Name"]
             )
         },
         required=["player", "enemy"]

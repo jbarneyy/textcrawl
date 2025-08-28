@@ -45,7 +45,7 @@ def main():
     # Configure client and tools. #
     client = genai.Client(api_key=api_key)
     tools = [available_functions]
-    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
+    config = types.GenerateContentConfig(max_output_tokens=150, system_instruction=game_state.get_gamestate(), tools=tools)
 
     # Using chat_history deque to make Gemini stateful. Will hold 20 interactions between user / model before automatically popping head of queue. #
     chat_history = deque(maxlen=20)
@@ -80,13 +80,20 @@ def main():
 
             # Logic for handling a function_call by Gemini. #
             if part.function_call is not None:
-                character_action = f"{call_function(part.function_call, player, game_state)}"
 
-                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
+                try:
+                    character_action = f"{call_function(part.function_call, player, game_state)}"
 
-                config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
+                    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
 
-                print(character_action + "\n")
+                    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
+
+                    print(character_action + "\n")
+
+                except Exception as e:
+                    print(f"ERROR CALLING FUNCTION: {e}")
+
+                    
 
 
             # Logic for responding if there is not a function_call. #
