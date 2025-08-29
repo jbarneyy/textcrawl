@@ -52,6 +52,8 @@ class GameState():
 
             Keep responses between 20 and 120 words.
 
+            Always attempt to call a function from tools over returning text, if function is available / usable.
+
             Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
 
             Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
@@ -78,6 +80,8 @@ class GameState():
             Nearby Enemies: {", ".join(map(Enemy.to_string, self.get_nearby_enemies(self.player)))}
 
             Keep responses between 20 and 120 words.
+
+            Always attempt to call a function from tools over returning text, if function is available / usable.
 
             Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
 

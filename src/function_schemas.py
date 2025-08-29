@@ -25,6 +25,29 @@ schema_list_items = types.FunctionDeclaration(
     ),
 )
 
+# schema_move = types.FunctionDeclaration(
+#     name="move",
+#     description=(
+#         "Move character from current POI to another POI. "
+#         "Only call if player explicitly commands 'move', 'go', or 'travel'. "
+#         "Always set target_location to the EXACT string name of the POI. "
+#     ),
+#     parameters=types.Schema(
+#         type=types.Type.OBJECT,
+#         properties={
+#             "target_location": types.Schema(
+#                 type=types.Type.OBJECT,
+#                 description="Name of POI / Point of Interest that character is attempting to move to.",
+#                 properties={
+#                     "Name": types.Schema(type=types.Type.STRING, description="Name of target POI / Point of Interest.")
+#                 },
+#                 required=["Name"]
+#             )
+#         },
+#         required=["target_location"]
+#     )
+# )
+
 schema_move = types.FunctionDeclaration(
     name="move",
     description=(
@@ -35,16 +58,12 @@ schema_move = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "target_location": types.Schema(
-                type=types.Type.OBJECT,
+            "Name": types.Schema(
+                type=types.Type.STRING,
                 description="Name of POI / Point of Interest that character is attempting to move to.",
-                properties={
-                    "Name": types.Schema(type=types.Type.STRING, description="Name of target POI / Point of Interest.")
-                },
-                required=["Name"]
             )
         },
-        required=["target_location"]
+        required=["Name"]
     )
 )
 

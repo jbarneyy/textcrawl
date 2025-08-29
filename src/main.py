@@ -81,26 +81,25 @@ def main():
             # Logic for handling a function_call by Gemini. #
             if part.function_call is not None:
 
-                try:
-                    character_action = f"{call_function(part.function_call, player, game_state)}"
+                character_action = f"{call_function(part.function_call, player, game_state)}"
 
-                    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
+                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
 
-                    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
+                config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
-                    print(character_action + "\n")
+                print(character_action + "\n")
 
-                except Exception as e:
-                    print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
+                # except Exception as e:
+                #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
                     
-                    system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
-                    f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
+                #     system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
+                #     f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
 
-                    chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
+                #     chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
 
-                    response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
+                #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
 
-                    print(response.text)
+                #     print(response.text)
 
 
 
@@ -166,8 +165,9 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     If Player() cannot move to requested POI will not move Player().
     """
     if (function_name == "move"):
-        target_poi = function_args["target_location"]
-        target_poi_name = target_poi["Name"]
+        # target_poi = function_args["target_location"]
+        # target_poi_name = target_poi["Name"]
+        target_poi_name = function_args["Name"]
 
         result = player.move(target_location=game_state.pois[target_poi_name])
 
