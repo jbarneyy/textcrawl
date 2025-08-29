@@ -131,7 +131,7 @@ class GameState():
             enemy: Enemy object representing the enemy our player is attacking.
 
         Returns:
-            String representing outcome of battle.
+            String representing one roll of attack between Player and Enemy in battle.
         """
         if (player.current_POI is not enemy.current_POI):
             return f"{player.name} cannot attack {enemy.name}."
@@ -144,10 +144,6 @@ class GameState():
 
         enemy.health -= player_damage
         player.health -= enemy_damage
-
-        if (enemy.health <= 0):
-            # Need to remove enemy from GameState() enemies dict when enemy is killed. #
-            return f"{player.name} has defeated {enemy.name}."
         
         return f"{player.name} has dealt {player_damage} damage to {enemy.name}.\n{enemy.name} has dealt {enemy_damage} damage to {player.name}."
     

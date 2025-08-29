@@ -12,9 +12,12 @@ class Player(Character):
         self.armor = armor
         self.weapon = weapon
 
+        self.current_xp = 0
+        self.next_level_xp = self.level * 20
+
 
     def to_string(self):
-        return f"Player: {self.name}, Health: {self.health}, Level: {self.level}, Equipped Armor: {self.armor.to_string()}, Equipped Weapon: {self.weapon.to_string()}, \
+        return f"Player: {self.name}, Health: {self.health}, Level: {self.level}, Experience: {self.current_xp}/{self.next_level_xp}, Equipped Armor: {self.armor.to_string()}, Equipped Weapon: {self.weapon.to_string()}, \
                 Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
     
 
@@ -81,3 +84,24 @@ class Player(Character):
 
     def roll_attack(self):
         return (self.level * 2) + self.weapon.power
+    
+    def gain_xp(self, xp_amount: int) -> bool:
+        """Gain experience for Player after defeating an Enemy. Player will currently gain XP based on the amount of Enemy's max/starting health.
+        If Player.current_xp is greater than or equal to next_level_xp, increase Player level by 1, set current_xp to 0, add 20 to next_level_xp.
+
+        Args:
+            xp_amount: An int representing the amount of xp Player will gain, xp_amount will be same integer value as Enemy max health.
+        
+        Returns:
+            True if Player levels up, False if Player does not level up and only gained XP.
+        """
+        self.current_xp += xp_amount
+
+        if (self.current_xp >= self.next_level_xp):
+            self.level += 1
+            self.current_xp = 0
+            self.next_level_xp += 20
+
+            return True
+        
+        return False

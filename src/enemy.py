@@ -11,6 +11,8 @@ class Enemy():
         self.level = level
         self.current_POI = current_POI
 
+        self.xp_reward = health
+
     def to_string(self):
         return f"Name: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI.name}"
     

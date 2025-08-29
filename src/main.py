@@ -29,7 +29,7 @@ from gamestate import GameState
 
 def main():
 
-    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=5, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS)
+    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS)
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
@@ -116,7 +116,7 @@ def main():
 
 
 
-def slow_print_text(text: str, delay: float):
+def slow_print_text(text: str, delay: float = 0.03):
     for char in text:
         # Writes single character to stdout. #
         sys.stdout.write(char)
@@ -167,8 +167,6 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     If Player() cannot move to requested POI will not move Player().
     """
     if (function_name == "move"):
-        # target_poi = function_args["target_location"]
-        # target_poi_name = target_poi["Name"]
         target_poi_name = function_args["Name"]
 
         result = player.move(target_location=game_state.pois[target_poi_name])
@@ -207,19 +205,32 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
 
         while True:
-            print(f"{player.name} HP: {player.health} is battling {target_enemy_name} HP: {target_enemy.health}")
-            print("1) Attack or 2) Flee" + "\n")
+            slow_print_text(f"{player.name} HP: {player.health} is battling {target_enemy.name} HP: {target_enemy.health}")
+            slow_print_text("1) Attack or 2) Run" + "\n")
             player_response = input("> ")
 
-            if (player_response == "2"):
-                break
+            if player_response not in ["1", "2"]:
+                slow_print_text(f"I'm sorry {player.name}, that is not an option.\n")
+                continue
 
-            print(game_state.attack_enemy(player, game_state.enemies[target_enemy_name]) + "\n")
+            if (player_response == "2"):
+                return f"You flee from the {target_enemy.name} with shame."
+
+            slow_print_text(game_state.attack_enemy(player, target_enemy) + "\n")
             game_state.update_gamestate()
 
             if (target_enemy.health <= 0):
-                # GameState() needs to remove Enemy entity #
-                break
+                slow_print_text(f"{player.name} has defeated {target_enemy.name}!\nYou have gained {target_enemy.xp_reward} experience!")
+
+                did_player_levelup: bool = player.gain_xp(target_enemy.xp_reward)
+
+                if (did_player_levelup):
+                    slow_print_text(f"Congratulations! You have gained a level! You are now level: {player.level}.")
+
+                del game_state.enemies[target_enemy.name]
+                game_state.update_gamestate()
+                
+                return f"Well fought."
     
 
     # if (function_name == "get_nearby_pois"):
