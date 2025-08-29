@@ -142,13 +142,15 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     If grab_item() is False will not call grab_item().
     """
     if (function_name == "grab_item"):
-        result = player.grab_item(grab=function_args["grab"])
+        target_item_name = function_args["Name"]
+
+        result = player.grab_item(grab=target_item_name)
 
         if (result is True):
             game_state.update_gamestate()
-            return f"{player.name} grabs {function_args["grab"]}."
+            return f"{player.name} grabs {target_item_name}."
         else:
-            return f"{player.name} cannot pickup {function_args["grab"]}."
+            return f"{player.name} cannot pickup {target_item_name}."
         
 
     """
@@ -182,11 +184,13 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     Function call for Player() equip_item. If Item() is in Player() inventory and can_equip, will equip item and swap with inventory slot.
     """
     if (function_name == "equip_item"):
-        result = player.equip_item(item_name=function_args["item_name"])
+        target_item_name = function_args["Name"]
+
+        result = player.equip_item(item_name=target_item_name)
 
         if (result is True):
             game_state.update_gamestate()
-            return f"{player.name} equips {function_args["item_name"]}."
+            return f"{player.name} equips {target_item_name}."
         else:
             return f"{player.name} is unable to equip that."
         
@@ -198,7 +202,7 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     """
     if (function_name == "attack_enemy"):
         
-        target_enemy_name = function_args["enemy"]["Name"]
+        target_enemy_name = function_args["Name"]
         target_enemy = game_state.enemies[target_enemy_name]
 
 

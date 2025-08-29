@@ -6,12 +6,12 @@ schema_grab_item = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "grab": types.Schema(
+            "Name": types.Schema(
                 type=types.Type.STRING,
-                description="String representing the Item.name of the item player attempts to grab.",
+                description="String representing the Item name of the item player attempts to grab.",
             ),
         },
-        required=["grab"]
+        required=["Name"]
     ),
 )
 
@@ -74,12 +74,12 @@ schema_equip_item = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "item_name": types.Schema(
+            "Name": types.Schema(
                 type=types.Type.STRING,
                 description="String representing the name of the item (Item.name) that player is attempting to equip.",
             ),
         },
-        required=["item_name"]
+        required=["Name"]
     ),
 )
 
@@ -89,20 +89,11 @@ schema_attack_enemy = types.FunctionDeclaration(
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
-            "player": types.Schema(
-                type=types.Type.OBJECT,
-                description="Player object representing our player from class Player()"
-            ),
-            "enemy": types.Schema(
-                type=types.Type.OBJECT,
-                description="Enemy object representing the Enemy() our player is attacking.",
-                properties={
-                    "Name": types.Schema(type=types.Type.STRING, description="Name of the enemy.")
-                },
-                required=["Name"]
-            )
+            "Name": types.Schema(
+                type=types.Type.STRING, 
+                description="Name of the Enemy() that Player() is attempting to attack.")
         },
-        required=["player", "enemy"]
+        required=["Name"]
     )
 )
 
