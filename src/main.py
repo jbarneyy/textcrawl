@@ -91,9 +91,18 @@ def main():
                     print(character_action + "\n")
 
                 except Exception as e:
-                    print(f"ERROR CALLING FUNCTION: {e}")
-
+                    print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
                     
+                    system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
+                    f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
+
+                    chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
+
+                    response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
+
+                    print(response.text)
+
+
 
 
             # Logic for responding if there is not a function_call. #

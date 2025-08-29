@@ -54,8 +54,6 @@ class GameState():
 
             Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
 
-            Always attempt to call function_call over returning text.
-
             Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """
 
@@ -82,8 +80,6 @@ class GameState():
             Keep responses between 20 and 120 words.
 
             Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
-
-            Always attempt to call function_call over returning text.
 
             Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """

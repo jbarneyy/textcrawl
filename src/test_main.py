@@ -59,7 +59,7 @@ class Test(unittest.TestCase):
         
 
     def test_gamestate(self):
-        # print(self.game_state.get_gamestate())
+        print(self.game_state.get_gamestate())
         # print("\n")
 
         # print(self.game_state.get_nearby_characters(self.player))
