@@ -172,3 +172,10 @@ class GameState():
                     nearby_pois.append(target_poi)
         
         return nearby_pois
+
+
+    def trade(self, character: Character):
+        """
+        """
+
+        pass
