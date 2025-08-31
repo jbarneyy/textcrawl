@@ -175,7 +175,13 @@ class GameState():
 
 
     def trade(self, character: Character):
-        """
+        """Trade an item from Player to Character or from Character to Player.
+
+        Args:
+            Character, the character that we want to trade item between.
+
+        Return:
+            None, will update Character and Player item lists.
         """
 
         pass
