@@ -174,14 +174,28 @@ class GameState():
         return nearby_pois
 
 
-    def trade(self, character: Character):
+    def trade(self, character: Character, item_name: Item, is_buying: bool) -> bool:
         """Trade an item from Player to Character or from Character to Player.
 
         Args:
             Character, the character that we want to trade item between.
 
         Return:
-            None, will update Character and Player item lists.
+            True if trade is successful, False if trade is unsuccessful. Func will update Character and Player item lists.
         """
+        item = self.items[item_name]
 
-        pass
+        if (is_buying):
+            if (item not in character.items):
+                return False
+            else:
+                self.player.items.append(item)
+                character.items.remove(item)
+                return True
+        else:
+            if (item not in self.player.items):
+                return False
+            else:
+                self.player.items.remove(item)
+                character.items.append(item)
+                return True
