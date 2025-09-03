@@ -33,7 +33,7 @@ schema_trade = types.FunctionDeclaration(
         properties={
             "Name": types.Schema(
                 type=types.Type.STRING,
-                description="String representing the name of the item Player is attempting to trade."
+                description="String representing the name of the Character the Player is attempting to trade with."
             )
         },
         required=["Name"]
@@ -129,6 +129,7 @@ available_functions = types.Tool(
         schema_list_items,
         schema_move,
         schema_equip_item,
-        schema_attack_enemy
+        schema_attack_enemy,
+        schema_trade
     ]
 )

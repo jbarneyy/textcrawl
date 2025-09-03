@@ -185,6 +185,9 @@ class GameState():
         """
         item = self.items[item_name]
 
+        if (self.player.current_POI is not character.current_POI):
+            return False
+
         if (is_buying):
             if (item not in character.items):
                 return False

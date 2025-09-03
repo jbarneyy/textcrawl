@@ -231,6 +231,16 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 game_state.update_gamestate()
                 
                 return f"Well fought."
+            
+    if (function_name == "trade"):
+        character_name = function_args["Name"]
+        character = game_state.characters[character_name]
+
+        if (player.current_POI is not character.current_POI):
+            return f"{character.name} is not anywhere nearby."
+        
+        else:
+            return f"Trading with {character.name}"
 
 
 if __name__ == "__main__":
