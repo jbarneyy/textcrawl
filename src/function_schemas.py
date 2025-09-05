@@ -27,7 +27,7 @@ schema_list_items = types.FunctionDeclaration(
 
 schema_trade = types.FunctionDeclaration(
     name="trade",
-    description="Open up trading between Player and Character. Call when Player passes 'trade' keyword. Function will return True if trade is successful and False if trade is unsuccessful.",
+    description="Open up trading between Player and Character. Only call if Player uses the 'trade' keyword, do not call if 'trade' is not in player response. Function will return True if trade is successful and False if trade is unsuccessful.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={

@@ -232,6 +232,7 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 
                 return f"Well fought."
             
+            
     if (function_name == "trade"):
         character_name = function_args["Name"]
         character = game_state.characters[character_name]
@@ -253,7 +254,32 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             character_inventory = character_inventory.rstrip("\n")
 
             slow_print_text(f"{player.name} Inventory:\n{player_inventory}\n")
-            slow_print_text(f"{character.name} Inventory:\n{character_inventory}")
+            slow_print_text(f"{character.name} Inventory:\n{character_inventory}\n")
+
+            while True:
+                is_buying = None
+
+                slow_print_text("Would you like to 1) Buy / 2) Sell / 3) Exit?\n")
+                player_input = input("> ")
+
+                if player_input not in ["1", "2", "3"]:
+                    slow_print_text("Please select valid input.\n")
+                    continue
+
+                if player_input == "3":
+                    return f"You finish trading with {character.name}."
+                
+                if player_input == "1":
+                    is_buying = True
+                    slow_print_text("What item would you like to buy?\n")
+                
+                if player_input == "2":
+                    is_buying = False
+                    slow_print_text("What item would you like to sell?\n")
+
+
+
+
 
 
 
