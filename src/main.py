@@ -240,7 +240,21 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             return f"{character.name} is not anywhere nearby."
         
         else:
-            return f"Trading with {character.name}"
+            slow_print_text(f"Trading with {character.name}\n")
+
+            player_inventory = ""
+            for item in player.items:
+                player_inventory += f"{item.name} - {item.power} Gold\n"
+            player_inventory = player_inventory.rstrip("\n")
+
+            character_inventory = ""
+            for item in character.items:
+                character_inventory += f"{item.name} - {item.power} Gold\n"
+            character_inventory = character_inventory.rstrip("\n")
+
+            slow_print_text(f"{player.name} Inventory:\n{player_inventory}\n")
+            slow_print_text(f"{character.name} Inventory:\n{character_inventory}")
+
 
 
 if __name__ == "__main__":
