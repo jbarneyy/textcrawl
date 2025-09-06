@@ -78,3 +78,15 @@ class Character():
             return True
         else:
             return False
+        
+
+    def get_item(self, item_name: str | None) -> Item:
+        item_names = list(map(lambda x: x.name, self.items))
+        item = None
+        
+        if item_name in item_names:
+            for items in self.items:
+                if item_name.lower() == items.name.lower():
+                    item = items
+
+        return item

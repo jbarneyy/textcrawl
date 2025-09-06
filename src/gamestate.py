@@ -174,7 +174,7 @@ class GameState():
         return nearby_pois
 
 
-    def trade(self, character: Character, item_name: Item, is_buying: bool) -> bool:
+    def trade(self, character: Character, item_name: str, is_buying: bool) -> bool:
         """Trade an item from Player to Character or from Character to Player.
 
         Args:

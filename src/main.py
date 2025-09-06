@@ -33,7 +33,7 @@ def main():
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
-    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], enemies=[init.GIANT_RAT], items=[init.IRON_DAGGER], player=player)
+    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], enemies=[init.GIANT_RAT], items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP], player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #
     load_dotenv()
@@ -272,10 +272,21 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 if player_input == "1":
                     is_buying = True
                     slow_print_text("What item would you like to buy?\n")
-                
+
                 if player_input == "2":
                     is_buying = False
                     slow_print_text("What item would you like to sell?\n")
+                
+                item_name = input("> ")
+
+                return_value = game_state.trade(character, item_name, is_buying)
+
+                if (return_value is True):
+                    return "Successful trade."
+                else:
+                    return "Unsuccessful in trade."
+                    
+
 
 
 
