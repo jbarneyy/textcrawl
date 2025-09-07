@@ -227,6 +227,14 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 if (did_player_levelup):
                     slow_print_text(f"Congratulations! You have gained a level! You are now level: {player.level}.")
 
+                dropped_items = ""
+                for item in target_enemy.items:
+                    player.items.append(item)
+                    dropped_items += f"{item.name}, "
+                
+                slow_print_text(f"You take {dropped_items.rstrip(", ")} from {target_enemy.name}.")
+                
+
                 del game_state.enemies[target_enemy.name]
                 game_state.update_gamestate()
                 
@@ -280,6 +288,7 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 item_name = input("> ")
 
                 return_value = game_state.trade(character, item_name, is_buying)
+                game_state.update_gamestate()
 
                 if (return_value is True):
                     return "Successful trade."
