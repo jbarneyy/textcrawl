@@ -5,7 +5,7 @@ from zone import Zone
 
 class Character():
 
-    def __init__(self, name: str, health: int, items: list[Item] | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone):
+    def __init__(self, name: str, health: int, items: list[Item] | None, quests: list | None, level: int, current_POI: POI, current_zone: Zone, coins: int = 0):
         self.name = name
 
         self.health = health
@@ -18,9 +18,11 @@ class Character():
         self.current_POI = current_POI
         self.current_zone = current_zone
 
+        self.coins = coins
+
 
     def to_string(self):
-        return f"Character: {self.name} has Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}"
+        return f"Character: {self.name} has Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}"
     
 
     def grab_item(self, grab: str):

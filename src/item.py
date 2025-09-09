@@ -9,15 +9,16 @@ class ItemType(Enum):
 
 class Item():
 
-    def __init__(self, name: str, type: ItemType, power: int | None, description: str, can_pickup: bool = False):
+    def __init__(self, name: str, type: ItemType, power: int | None, description: str, can_pickup: bool = False, value: int = 0):
         self.name = name
         self.type = type
         self.power = power
         self.description = description
         self.can_pickup = can_pickup
+        self.value = value
 
     def to_string(self):
-        return f"{self.name} - {self.type.value} - {self.power} - {self.description}"
+        return f"Name: {self.name} - Type: {self.type.value} - Power: {self.power} - Description: {self.description} - Value: {self.value} gold"
     
     def use_item(self):
 
