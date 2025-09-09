@@ -39,7 +39,7 @@ class Player(Character):
         for item in self.items:
             items_string += f"- {item.to_string()}\n"
 
-        return f"{self.name}: Level - {self.level} / Health - {self.health} / Location - {self.current_POI.name}\n\n{self.name}'s Equipment:\n- {self.armor.to_string()}\n- {self.weapon.to_string()}\n\n" + items_string.rstrip("\n")
+        return f"{self.name}: Level - {self.level} / Health - {self.health} / Location - {self.current_POI.name} / Gold - {self.coins}\n\n{self.name}'s Equipment:\n- {self.armor.to_string()}\n- {self.weapon.to_string()}\n\n" + items_string.rstrip("\n")
     
     
     def equip_item(self, item_name: str) -> bool:

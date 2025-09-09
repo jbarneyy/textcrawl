@@ -29,7 +29,7 @@ from gamestate import GameState
 
 def main():
 
-    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS)
+    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
@@ -253,12 +253,12 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
             player_inventory = ""
             for item in player.items:
-                player_inventory += f"{item.name} - {item.power} Gold\n"
+                player_inventory += f"{item.name} - {item.description} -  {item.value} Gold\n"
             player_inventory = player_inventory.rstrip("\n")
 
             character_inventory = ""
             for item in character.items:
-                character_inventory += f"{item.name} - {item.power} Gold\n"
+                character_inventory += f"{item.name} - {item.description} - {item.value} Gold\n"
             character_inventory = character_inventory.rstrip("\n")
 
             slow_print_text(f"{player.name} Inventory:\n{player_inventory}\n")
@@ -287,13 +287,10 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 
                 item_name = input("> ")
 
-                return_value = game_state.trade(character, item_name, is_buying)
+                return_string = game_state.trade(character, item_name, is_buying)
                 game_state.update_gamestate()
 
-                if (return_value is True):
-                    return "Successful trade."
-                else:
-                    return "Unsuccessful in trade."
+                return return_string
                     
 
 
