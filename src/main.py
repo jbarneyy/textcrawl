@@ -270,27 +270,31 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 slow_print_text("Would you like to 1) Buy / 2) Sell / 3) Exit?\n")
                 player_input = input("> ")
 
-                if player_input not in ["1", "2", "3"]:
+                if player_input not in ["1", "2", "3", "Buy", "Sell", "Exit", "buy", "sell", "exit"]:
                     slow_print_text("Please select valid input.\n")
                     continue
 
-                if player_input == "3":
+                if player_input in ["3", "Exit", "exit"]:
                     return f"You finish trading with {character.name}."
                 
-                if player_input == "1":
+                if player_input in ["1", "Buy", "buy"]:
                     is_buying = True
                     slow_print_text("What item would you like to buy?\n")
 
-                if player_input == "2":
+                if player_input in ["2", "Sell", "sell"]:
                     is_buying = False
                     slow_print_text("What item would you like to sell?\n")
                 
                 item_name = input("> ")
 
+                if (item_name not in game_state.items):
+                    slow_print_text("Please enter valid item name with correct casing.\n")
+                    continue
+
                 return_string = game_state.trade(character, item_name, is_buying)
                 game_state.update_gamestate()
 
-                return return_string
+                slow_print_text(return_string + "\n")
                     
 
 
