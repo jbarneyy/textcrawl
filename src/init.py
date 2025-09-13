@@ -8,6 +8,7 @@ from poi import POI
 from character import Character
 from zone import Zone
 from enemy import Enemy
+from quest import Quest
 
 
 def populate_random_items(*lists: list[Item]):
@@ -33,6 +34,7 @@ SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health 
 SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana potion, used to restore mana.", True)
 
 # Initialize Quests #
+HARKENS_POLE = Quest("Harken's Fishing Pole", "Harken has lost his fishing pole.", "Return Harken's fishing pole to him, it was last seen in the Lakefront.", False)
 
 # Initialize Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)

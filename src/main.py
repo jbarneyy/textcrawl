@@ -30,11 +30,18 @@ from gamestate import GameState
 
 def main():
 
-    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD, quests=None, level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
+    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
+                     quests=[init.HARKENS_POLE], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
-    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS], pois=[init.LAKEFRONT, init.MISTY_TANKARD], characters=[init.HARKEN_BRISTLE], enemies=[init.GIANT_RAT], items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP], player=player)
+    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS],
+                           pois=[init.LAKEFRONT, init.MISTY_TANKARD],
+                           characters=[init.HARKEN_BRISTLE],
+                           enemies=[init.GIANT_RAT],
+                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP],
+                           quests=[init.HARKENS_POLE],
+                           player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #
     load_dotenv()

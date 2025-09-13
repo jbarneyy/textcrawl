@@ -1,12 +1,11 @@
 
-
 class Quest():
 
-    def __init__(self, name: str, description: str, objectives: list[str], is_complete: bool = False, is_active: bool = False):
+    def __init__(self, name: str, description: str, objective: str, is_complete: bool = False):
         self.name = name
         self.description = description
-        self.objectives = objectives
+        self.objective = objective
         self.is_complete = is_complete
-        self.is_active = is_active
 
-    
+    def to_string(self):
+        return f"Quest: {self.name} - Description: {self.description} - Objective: {self.objective}"

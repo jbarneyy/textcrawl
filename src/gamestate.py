@@ -4,19 +4,21 @@ from item import Item
 from character import Character
 from player import Player
 from enemy import Enemy
+from quest import Quest
 
 import init
 
 
 class GameState():
 
-    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, enemies: list[Enemy] | None, items: list[Item] | None, player: Player):
+    def __init__(self, zones: list[Zone] | None, pois: list[POI] | None, characters: list[Character] | None, enemies: list[Enemy] | None, items: list[Item] | None, quests: list[Quest] | None, player: Player):
 
         self.zones: dict[str, Zone] = {}
         self.pois: dict[str, POI] = {}
         self.characters: dict[str, Character] = {}
         self.items: dict[str, Item] = {}
         self.enemies: dict[str, Enemy] = {}
+        self.quests: dict[str, Quest] = {}
         
         for zone in zones:
             self.zones[zone.name] = zone
@@ -32,6 +34,9 @@ class GameState():
 
         for enemy in enemies:
             self.enemies[enemy.name] = enemy
+
+        for quest in quests:
+            self.quests[quest.name] = quest
 
         self.player = player
 
