@@ -10,6 +10,7 @@ from zone import Zone
 from enemy import Enemy
 from quest import Quest
 from gamestate import GameState
+from player import Player
 
 
 def populate_random_items(*lists: list[Item]):
@@ -20,6 +21,9 @@ def populate_random_items(*lists: list[Item]):
 
     return random_items
 
+# Initialize Quest Completion Callables #
+def visited_misty_tankard(player: Player, gamestate: GameState) -> bool:
+    return player.current_POI is gamestate.pois.get("The Misty Tankard")
 
 # Initialize Weapons #
 IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True)
@@ -35,7 +39,7 @@ SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health 
 SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana potion, used to restore mana.", True)
 
 # Initialize Quests #
-HARKENS_POLE = Quest("Harken's Fishing Pole", "Harken has lost his fishing pole.", "Return Harken's fishing pole to him, it was last seen in the Lakefront.", False)
+QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", visited_misty_tankard, False, 10)
 
 # Initialize Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)

@@ -13,8 +13,8 @@ class Player(Character):
         self.armor = armor
         self.weapon = weapon
 
-        self.current_xp = 0
-        self.next_level_xp = self.level * 20
+        self.current_xp: int = 0
+        self.next_level_xp: int = self.level * 20
 
 
     def to_string(self):
@@ -91,14 +91,18 @@ class Player(Character):
         If Player.current_xp is greater than or equal to next_level_xp, increase Player level by 1, set current_xp to 0, add 20 to next_level_xp.
 
         Args:
-            xp_amount: An int representing the amount of xp Player will gain, xp_amount will be same integer value as Enemy max health.
+            xp_amount: An int representing the amount of xp Player will gain.
         
         Returns:
             True if Player levels up, False if Player does not level up and only gained XP.
         """
         self.current_xp += xp_amount
 
+        print(f"INSIDE PLAYER GAIN XP: {xp_amount}")
+
         if (self.current_xp >= self.next_level_xp):
+
+            print("DEEPER INSIDE PLAYER XP")
             self.level += 1
             self.current_xp = 0
             self.next_level_xp += 20

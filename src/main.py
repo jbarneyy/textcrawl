@@ -31,7 +31,7 @@ from gamestate import GameState
 def main():
 
     player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.HARKENS_POLE], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
+                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
@@ -40,7 +40,7 @@ def main():
                            characters=[init.HARKEN_BRISTLE],
                            enemies=[init.GIANT_RAT],
                            items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP],
-                           quests=[init.HARKENS_POLE],
+                           quests=[init.QUEST_MISTY_TANKARD],
                            player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #

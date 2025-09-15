@@ -67,6 +67,16 @@ class GameState():
         return self.game_state
     
     def update_gamestate(self) -> str:
+
+        for quest in self.player.quests:
+
+            if quest.is_complete:
+                continue
+
+            if quest.update(player=self.player, gamestate=self) is True:
+                self.player.gain_xp(quest.xp_reward)
+            
+
         self.game_state = f"""
             You are an AI Dungeon Master for a text-based adventure game.
             
@@ -208,10 +218,4 @@ class GameState():
                 character.items.append(item)
                 return f"You successfully sell {item.name}."
 
-
-
-""" Quest() callable functions to check if quest is completed during GameState.update_gamestate() """
-
-def visited_misty_tankard(player: Player, gamestate: GameState) -> bool:
-    return player.current_POI is gamestate.pois.get("The Misty Tankard")
 
