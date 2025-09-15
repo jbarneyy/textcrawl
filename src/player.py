@@ -19,7 +19,7 @@ class Player(Character):
 
     def to_string(self):
         return f"Player: {self.name}, Health: {self.health}, Level: {self.level}, Experience: {self.current_xp}/{self.next_level_xp}, Equipped Armor: {self.armor.to_string()}, Equipped Weapon: {self.weapon.to_string()}, \
-                Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}, Quests: {", ".join(map(Quest.to_string, self.quests))}"
+                Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}, Quests: {", ".join(quest.to_string() for quest in self.quests if not quest.is_complete)}"
     
 
     def list_items(self):

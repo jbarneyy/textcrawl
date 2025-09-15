@@ -6,8 +6,6 @@ from player import Player
 from enemy import Enemy
 from quest import Quest
 
-import init
-
 
 class GameState():
 
@@ -209,3 +207,11 @@ class GameState():
                 self.player.items.remove(item)
                 character.items.append(item)
                 return f"You successfully sell {item.name}."
+
+
+
+""" Quest() callable functions to check if quest is completed during GameState.update_gamestate() """
+
+def visited_misty_tankard(player: Player, gamestate: GameState) -> bool:
+    return player.current_POI is gamestate.pois.get("The Misty Tankard")
+

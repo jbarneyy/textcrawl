@@ -9,6 +9,7 @@ from character import Character
 from zone import Zone
 from enemy import Enemy
 from quest import Quest
+from gamestate import GameState
 
 
 def populate_random_items(*lists: list[Item]):
