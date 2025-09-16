@@ -25,27 +25,33 @@ def populate_random_items(*lists: list[Item]):
 def visited_misty_tankard(player: Player, gamestate: GameState) -> bool:
     return player.current_POI is gamestate.pois.get("The Misty Tankard")
 
-# Initialize Weapons #
+def return_harkens_pole(player: Player, gamestate: GameState) -> bool:
+    return player.current_POI is gamestate.pois.get("The Misty Tankard") and gamestate.items.get("Harken's Pole") in gamestate.characters.get("Harken Bristle").items
+
+# Initialize Item Weapons #
 IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True)
 IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True)
 IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet.", True)
 
-# Initalize Armor #
+# Initalize Item Armor #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True)
 IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True)
 
-# Initalize Consumables #
+# Initalize Item Consumables #
 SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True)
 SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana potion, used to restore mana.", True)
 
-# Initialize Quests #
-QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", visited_misty_tankard, False, 10)
-
-# Initialize Misc #
+# Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
 SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", False)
 RAT_TOOTH = Item("Rat Tooth", ItemType.MISC, None, "A crusty and bloody rat tooth.", True)
 
+# Initialize Item Quest #
+HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
+
+# Initialize Quests #
+QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", visited_misty_tankard, False, 10)
+QUEST_HARKENS_POLE = Quest("Harken's Fishing Pole", "Return Harken's fishing pole to him.", return_harkens_pole, False, 50)
 
 # Group types of items together to be used in POI generation for randomness. #
 IRON_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
@@ -83,7 +89,17 @@ LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
 
 
 # Initialize Characters #
-HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], None, 1, MISTY_TANKARD, LAKE_OF_THOUGHTS)
+HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, LAKE_OF_THOUGHTS, 10,
+                           description="""A grizzled, broad-shouldered dwarf with a beard like twisted iron and eyes that gleam with stubborn resolve. 
+                           Once a master blacksmith of the Emberdeep Forges, he now runs the Misty Tankard tavern as both a barkeep 
+                           and quiet keeper of local secrets. Harken speaks in a gravelly baritone, every word weighed like 
+                           a hammer strike, and carries the scent of smoke and oiled steel wherever he goes. 
+                           Though age has silvered the edges of his hair, his arms still bear the strength of 
+                           decades at the anvil, and his sharp wit makes him as quick with a clever retort as he once was 
+                           with a forge hammer. Rumor has it Harken keeps a hidden cache of rare ores beneath the tavern 
+                           floor—and a past filled with debts, alliances, and old grudges.
+                           
+                            """)
 
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)

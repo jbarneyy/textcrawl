@@ -4,11 +4,13 @@ from poi import POI
 from zone import Zone
 from quest import Quest
 
+import random
+
 
 class Player(Character):
 
-    def __init__(self, name: str, health: int, items: list[Item] | None, armor: Item | None, weapon: Item | None, quests: list[Quest] | None, level: int, current_POI: POI, current_zone: Zone, coins: int = 0):
-        super().__init__(name, health, items, quests, level, current_POI, current_zone, coins)
+    def __init__(self, name: str, health: int, items: list[Item] | None, armor: Item | None, weapon: Item | None, quests: list[Quest] | None, level: int, current_POI: POI, current_zone: Zone, coins: int, description: str):
+        super().__init__(name, health, items, quests, level, current_POI, current_zone, coins, description)
 
         self.armor = armor
         self.weapon = weapon
@@ -84,7 +86,8 @@ class Player(Character):
             return True
 
     def roll_attack(self):
-        return (self.level * 2) + self.weapon.power
+        base_damage = (self.level * 2) + self.weapon.power
+        return random.randint(base_damage, base_damage + 10)
     
     def gain_xp(self, xp_amount: int) -> bool:
         """Gain experience for Player after defeating an Enemy. Player will currently gain XP based on the amount of Enemy's max/starting health.
@@ -98,11 +101,7 @@ class Player(Character):
         """
         self.current_xp += xp_amount
 
-        print(f"INSIDE PLAYER GAIN XP: {xp_amount}")
-
         if (self.current_xp >= self.next_level_xp):
-
-            print("DEEPER INSIDE PLAYER XP")
             self.level += 1
             self.current_xp = 0
             self.next_level_xp += 20

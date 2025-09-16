@@ -57,7 +57,9 @@ class GameState():
 
             Always attempt to call a function from tools over returning text, if function is available / usable.
 
-            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
+            Do not invent new Zones, POIs, NPCs / Characters, Enemies, Items, or Quests.
+
+            If the Player asks to talk with a Character, generate responses based on the Character's description.
 
             Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """
@@ -96,7 +98,9 @@ class GameState():
 
             Always attempt to call a function from tools over returning text, if function is available / usable.
 
-            Feel free to give general responses to player/character actions. Do not invent new zones or locations. Feel free to invent smaller details.
+            Do not invent new Zones, POIs, NPCs / Characters, Enemies, Items, or Quests.
+
+            If the Player asks to talk with a Character, generate responses based on the Character's description.            
 
             Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
         """

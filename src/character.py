@@ -6,7 +6,7 @@ from quest import Quest
 
 class Character():
 
-    def __init__(self, name: str, health: int, items: list[Item] | None, quests: list[Quest] | None, level: int, current_POI: POI, current_zone: Zone, coins: int = 0):
+    def __init__(self, name: str, health: int, items: list[Item] | None, quests: list[Quest] | None, level: int, current_POI: POI, current_zone: Zone, coins: int, description: str):
         self.name = name
 
         self.health = health
@@ -20,10 +20,11 @@ class Character():
         self.current_zone = current_zone
 
         self.coins = coins
+        self.description = description
 
 
     def to_string(self):
-        return f"Character: {self.name}, Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}, Quest: {self.quests[0].name if self.quests else "None"}"
+        return f"Character: {self.name}, Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}, Quests: {self.quests[0].name if self.quests else "None"}, Description: {self.description}"
     
 
     def grab_item(self, grab: str):

@@ -1,6 +1,8 @@
 from item import Item
 from poi import POI
 
+import random
+
 class Enemy():
 
     def __init__(self, name: str, health: int, defence: int, items: list[Item] | None, level: int, current_POI: POI):
@@ -17,4 +19,5 @@ class Enemy():
         return f"Name: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI.name}"
     
     def roll_attack(self):
-        return (self.level * 2)
+        base_damage = (self.level * 2)
+        return random.randint(base_damage, base_damage + 10)

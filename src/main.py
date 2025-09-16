@@ -31,7 +31,8 @@ from gamestate import GameState
 def main():
 
     player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100)
+                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100,
+                     description="Our fearless adventurer.")
 
     #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
