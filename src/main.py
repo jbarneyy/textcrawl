@@ -40,7 +40,7 @@ def main():
                            pois=[init.LAKEFRONT, init.MISTY_TANKARD],
                            characters=[init.HARKEN_BRISTLE],
                            enemies=[init.GIANT_RAT],
-                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP],
+                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE],
                            quests=[init.QUEST_MISTY_TANKARD],
                            player=player)
 

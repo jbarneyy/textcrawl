@@ -222,7 +222,9 @@ class GameState():
                 character.items.append(item)
                 return f"You successfully sell {item.name}."
             
-    def accept_quest(self, character: Character, quest: Quest) -> str:
+    
+    def accept_quest(self, character: Character) -> str:
+        quest = character.quests[0]
 
         if (quest in self.player.quests):
             return f"You have already accepted {quest.name}."

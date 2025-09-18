@@ -186,5 +186,17 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
                 slow_print_text(return_string + "\n")
 
+
     if (function_name == "accept_quest"):
-        pass
+        character_name = function_args["Name"]
+        character = game_state.characters[character_name]
+        quest = character.quests[0]
+
+        if quest is None:
+            return f"{character.name} does not have any quests for you at this moment."
+        
+        return_string = game_state.accept_quest(character)
+        game_state.update_gamestate()
+
+        return return_string
+    

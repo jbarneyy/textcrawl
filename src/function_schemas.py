@@ -124,13 +124,13 @@ schema_get_nearby_pois = types.FunctionDeclaration(
 
 schema_accept_quest = types.FunctionDeclaration(
     name="accept_quest",
-    description="Accept a Quest if Player and Character are in same Point of Interest. Only call function when Player asks nearby Character for a quest.",
+    description="Player asks Character if they have any quests for them to attempt. Should only call if the Player specifically asks a Character's name if they have any quests available.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "Name": types.Schema(
                 type=types.Type.STRING,
-                description="Name of the Quest() that Player() is attempting to start from Character()."
+                description="Name of the Character that the Player is asking for a Quest from."
             )
         },
         required=["Name"]

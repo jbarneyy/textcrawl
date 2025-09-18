@@ -65,7 +65,7 @@ LAKEFRONT = POI("Lakefront",
                 "You are under the swaying branches of a gnarled willow tree, its long silver leaves dancing in the breeze like whispers of ancient secrets. " \
                 "You can see the Lake of Thoughts before you.",
                 (0, 0),
-                populate_random_items(IRON_WEAPONS, MISC, MISC, MISC),
+                populate_random_items(IRON_WEAPONS, MISC, MISC, MISC) + [HARKENS_POLE],
                 True)
 
 MISTY_TANKARD = POI("The Misty Tankard",
