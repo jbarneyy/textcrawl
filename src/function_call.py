@@ -185,3 +185,6 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 game_state.update_gamestate()
 
                 slow_print_text(return_string + "\n")
+
+    if (function_name == "accept_quest"):
+        pass

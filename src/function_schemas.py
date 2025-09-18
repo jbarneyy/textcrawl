@@ -122,6 +122,21 @@ schema_get_nearby_pois = types.FunctionDeclaration(
     )
 )
 
+schema_accept_quest = types.FunctionDeclaration(
+    name="accept_quest",
+    description="Accept a Quest if Player and Character are in same Point of Interest. Only call function when Player asks nearby Character for a quest.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "Name": types.Schema(
+                type=types.Type.STRING,
+                description="Name of the Quest() that Player() is attempting to start from Character()."
+            )
+        },
+        required=["Name"]
+    )
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
@@ -130,6 +145,7 @@ available_functions = types.Tool(
         schema_move,
         schema_equip_item,
         schema_attack_enemy,
-        schema_trade
+        schema_trade,
+        schema_accept_quest
     ]
 )

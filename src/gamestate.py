@@ -221,5 +221,18 @@ class GameState():
                 self.player.items.remove(item)
                 character.items.append(item)
                 return f"You successfully sell {item.name}."
+            
+    def accept_quest(self, character: Character, quest: Quest) -> str:
+
+        if (quest in self.player.quests):
+            return f"You have already accepted {quest.name}."
+        
+        if (character.current_POI is not self.player.current_POI):
+            return f"{character.name} is not nearby."
+        
+        self.player.quests.append(quest)
+        return f"You have started a new quest: {quest.name}!"
+
+
 
 

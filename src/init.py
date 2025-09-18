@@ -33,7 +33,7 @@ IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems 
 IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True)
 IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet.", True)
 
-# Initalize Item Armor #
+# Initalize Item Armors #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True)
 IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True)
 
