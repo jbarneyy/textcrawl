@@ -91,10 +91,12 @@ class Player(Character):
                 self.items.remove(potential_equip)
             return True
 
+
     def roll_attack(self):
         base_damage = (self.level * 2) + self.weapon.power
         return random.randint(base_damage, base_damage + 10)
     
+
     def gain_xp(self, xp_amount: int) -> bool:
         """Gain experience for Player after defeating an Enemy. Player will currently gain XP based on the amount of Enemy's max/starting health.
         If Player.current_xp is greater than or equal to next_level_xp, increase Player level by 1, set current_xp to 0, add 20 to next_level_xp.
@@ -115,3 +117,37 @@ class Player(Character):
             return True
         
         return False
+    
+
+    def use_item(self, item: Item) -> str:
+
+        if (item not in self.items):
+            return f"You do not have {item.name} in your inventory."
+        
+        match item.type:
+            case ItemType.WEAPON:
+                responses = [f"You test the weight of your {item.name}, well balanced.",
+                             f"The weapon feels balanced in your grip, though the hilt is slick with old sweat.",
+                             f"You jab at an invisible foe.",
+                             f"A sharp vibration runs up the handle, numbing your fingers.",
+                             f"You heft the weapon and take a careful practice slash."]
+                
+                return random.choice(responses)
+            
+            case ItemType.ARMOR:
+                return f"You examine the armor, it appears ready for combat!"
+            
+            case ItemType.CONSUMABLE:
+                responses = [f"You examine the {item.name} and furiously consume it.",
+                             f"A cool sensation flows through your veins.",
+                             f"You use {item.name}, a faint glow surrounds you.",
+                             f"*Glugs vigorously*",
+                             f"You feel strength return to your bones."]
+
+                self.health += item.power
+                if (self.health > 100): self.health = 100
+
+                self.items.remove(item)
+
+                return random.choice(responses) + f"\n{item.name} restores {item.power} health."
+    

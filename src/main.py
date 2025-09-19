@@ -96,7 +96,7 @@ def main():
 
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
-                print(character_action + "\n")
+                print(character_action + "\n", flush=True)
 
                 # except Exception as e:
                 #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
@@ -117,7 +117,7 @@ def main():
             elif part.text is not None:
                 chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
 
-                print(response.text)
+                print(response.text, flush=True)
                 #slow_print_text(response.text, 0.02)
             
         except Exception as e:

@@ -200,3 +200,10 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
         return return_string
     
+
+    if (function_name == "use_item"):
+        item_name = function_args["Name"]
+        item = game_state.items[item_name]
+
+        return player.use_item(item)
+    

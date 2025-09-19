@@ -84,8 +84,7 @@ schema_move = types.FunctionDeclaration(
 
 schema_equip_item = types.FunctionDeclaration(
     name="equip_item",
-    description="Equip an item from the player's inventory into either player's armor var or player's weapon var. Item must be in inventory and of ItemType.WEAPON or ItemType.ARMOR. Only call if player explicity commands 'equip'." \
-    "If an item is already equipped, it will move the current equip into player's inventory. Returns True if item is successfully equipped to player.armor or player.weapon. False if equip is unsuccessful.",
+    description="Equip a weapon or armor from the player's inventory. ONLY call if the player explicitly says 'equip' or 'wear' or 'wield'. Do NOT call if the player says 'use'.",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
@@ -137,6 +136,21 @@ schema_accept_quest = types.FunctionDeclaration(
     )
 )
 
+schema_use_item = types.FunctionDeclaration(
+    name="use_item",
+    description="Player uses an Item in their inventory. ONLY call if Player passes keyword 'use'. NEVER call if Player uses keyword 'equip'.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "Name": types.Schema(
+                type=types.Type.STRING,
+                description="String representing the name of the item (Item.name) that player is attempting to equip."
+            )
+        },
+        required=["Name"]
+    )
+)
+
 # Must wrap function declaration schemes as a types.Tool to pass in as list[Tool] to client config. #
 available_functions = types.Tool(
     function_declarations=[
@@ -146,6 +160,7 @@ available_functions = types.Tool(
         schema_equip_item,
         schema_attack_enemy,
         schema_trade,
-        schema_accept_quest
+        schema_accept_quest,
+        schema_use_item
     ]
 )
