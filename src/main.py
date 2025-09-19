@@ -38,10 +38,10 @@ def main():
 
     game_state = GameState(zones=[init.LAKE_OF_THOUGHTS],
                            pois=[init.LAKEFRONT, init.MISTY_TANKARD],
-                           characters=[init.HARKEN_BRISTLE],
+                           characters=[init.HARKEN_BRISTLE, init.SYLVARA],
                            enemies=[init.GIANT_RAT],
-                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE],
-                           quests=[init.QUEST_MISTY_TANKARD],
+                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE, init.RAT_TOOTH],
+                           quests=[init.QUEST_MISTY_TANKARD, init.QUEST_HARKENS_POLE, init.QUEST_RAT_TOOTH],
                            player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #

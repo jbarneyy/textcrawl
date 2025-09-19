@@ -44,7 +44,7 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
         
 
     """
-    Function call for Player() list_items. Will always evaluate to True and will return list of all items in Player() inventory.
+    Function call for Player() list_items. Will always evaluate to True and will return list of Player's equipment, inventory, and quests.
     """
     if (function_name == "list_items"):
         game_state.update_gamestate()
@@ -95,34 +95,34 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
 
 
         while True:
-            slow_print_text(f"{player.name} HP: {player.health} is battling {target_enemy.name} HP: {target_enemy.health}")
-            slow_print_text("1) Attack or 2) Run" + "\n")
+            print(f"{player.name} HP: {player.health} is battling {target_enemy.name} HP: {target_enemy.health}")
+            print("1) Attack or 2) Run" + "\n")
             player_response = input("> ")
 
             if player_response not in ["1", "2"]:
-                slow_print_text(f"I'm sorry {player.name}, that is not an option.\n")
+                print(f"I'm sorry {player.name}, that is not an option.\n")
                 continue
 
             if (player_response == "2"):
                 return f"You flee from the {target_enemy.name} with shame."
 
-            slow_print_text(game_state.attack_enemy(player, target_enemy) + "\n")
+            print(game_state.attack_enemy(player, target_enemy) + "\n")
             game_state.update_gamestate()
 
             if (target_enemy.health <= 0):
-                slow_print_text(f"{player.name} has defeated {target_enemy.name}!\nYou have gained {target_enemy.xp_reward} experience!")
+                print(f"{player.name} has defeated {target_enemy.name}!\nYou have gained {target_enemy.xp_reward} experience!")
 
                 did_player_levelup: bool = player.gain_xp(target_enemy.xp_reward)
 
                 if (did_player_levelup):
-                    slow_print_text(f"Congratulations! You have gained a level! You are now level: {player.level}.")
+                    print(f"Congratulations! You have gained a level! You are now level: {player.level}.")
 
                 dropped_items = ""
                 for item in target_enemy.items:
                     player.items.append(item)
                     dropped_items += f"{item.name}, "
                 
-                slow_print_text(f"You take {dropped_items.rstrip(", ")} from {target_enemy.name}.")
+                print(f"You take {dropped_items.rstrip(", ")} from {target_enemy.name}.")
                 
 
                 del game_state.enemies[target_enemy.name]
@@ -139,7 +139,7 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             return f"{character.name} is not anywhere nearby."
         
         else:
-            slow_print_text(f"Trading with {character.name}\n")
+            print(f"Trading with {character.name}\n")
 
             player_inventory = ""
             for item in player.items:
@@ -151,17 +151,17 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 character_inventory += f"{item.name} - {item.description} - {item.value} Gold\n"
             character_inventory = character_inventory.rstrip("\n")
 
-            slow_print_text(f"{player.name} Inventory:\n{player_inventory}\n")
-            slow_print_text(f"{character.name} Inventory:\n{character_inventory}\n")
+            print(f"{player.name} Inventory:\n{player_inventory}\n")
+            print(f"{character.name} Inventory:\n{character_inventory}\n")
 
             while True:
                 is_buying = None
 
-                slow_print_text("Would you like to 1) Buy / 2) Sell / 3) Exit?\n")
+                print("Would you like to 1) Buy / 2) Sell / 3) Exit?\n")
                 player_input = input("> ")
 
                 if player_input not in ["1", "2", "3", "Buy", "Sell", "Exit", "buy", "sell", "exit"]:
-                    slow_print_text("Please select valid input.\n")
+                    print("Please select valid input.\n")
                     continue
 
                 if player_input in ["3", "Exit", "exit"]:
@@ -169,22 +169,22 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 
                 if player_input in ["1", "Buy", "buy"]:
                     is_buying = True
-                    slow_print_text("What item would you like to buy?\n")
+                    print("What item would you like to buy?\n")
 
                 if player_input in ["2", "Sell", "sell"]:
                     is_buying = False
-                    slow_print_text("What item would you like to sell?\n")
+                    print("What item would you like to sell?\n")
                 
                 item_name = input("> ")
 
                 if (item_name not in game_state.items):
-                    slow_print_text("Please enter valid item name with correct casing.\n")
+                    print("Please enter valid item name with correct casing.\n")
                     continue
 
                 return_string = game_state.trade(character, item_name, is_buying)
                 game_state.update_gamestate()
 
-                slow_print_text(return_string + "\n")
+                print(return_string + "\n")
 
 
     if (function_name == "accept_quest"):

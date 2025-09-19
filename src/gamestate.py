@@ -224,6 +224,14 @@ class GameState():
             
     
     def accept_quest(self, character: Character) -> str:
+        """Accept a quest from a Character if they have a quest to give. Will not give duplicate quest if it has already been accepted.
+
+        Args:
+            Character, the character that Player attempts to receive quest from.
+
+        Return:
+            String describing result of function. Will display quest's accept_message if successful.
+        """
         quest = character.quests[0]
 
         if (quest in self.player.quests):
@@ -233,7 +241,7 @@ class GameState():
             return f"{character.name} is not nearby."
         
         self.player.quests.append(quest)
-        return f"You have started a new quest: {quest.name}!"
+        return f"{quest.accept_message}\nYou have started a new quest: {quest.name}!"
 
 
 

@@ -25,7 +25,7 @@ class Player(Character):
     
 
     def list_items(self):
-        """List Player's current items / inventory and equipment.
+        """List Player's current items / inventory / equipment / quests / stats.
 
         Args:
             None: No arguments needed, return the Player's inventory with some formatting.
@@ -42,7 +42,13 @@ class Player(Character):
         for item in self.items:
             items_string += f"- {item.to_string()}\n"
 
-        return f"{self.name}: Level - {self.level} / Health - {self.health} / Location - {self.current_POI.name} / Gold - {self.coins}\n\n{self.name}'s Equipment:\n- {self.armor.to_string()}\n- {self.weapon.to_string()}\n\n" + items_string.rstrip("\n")
+        quests_string = f"{self.name}'s Quests:\n"
+
+        for quest in self.quests:
+            quests_string += f"- {quest.to_string()}\n"
+
+        return (f"{self.name}: Level - {self.level} / Health - {self.health} / Location - {self.current_POI.name} / Gold - {self.coins}\n\n{self.name}'s Equipment:\n- {self.armor.to_string()}\n- {self.weapon.to_string()}\n\n"
+                + items_string.rstrip("\n") + "\n\n" + quests_string.rstrip("\n"))
     
     
     def equip_item(self, item_name: str) -> bool:

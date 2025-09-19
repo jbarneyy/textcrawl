@@ -2,9 +2,10 @@ from typing import Callable
 
 class Quest():
 
-    def __init__(self, name: str, description: str, check_complete: Callable, is_complete: bool = False, xp_reward: int = 50):
+    def __init__(self, name: str, description: str, accept_message: str, check_complete: Callable, is_complete: bool = False, xp_reward: int = 50):
         self.name = name
         self.description = description
+        self.accept_message = accept_message
         self.check_complete = check_complete
         self.is_complete = is_complete
 
