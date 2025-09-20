@@ -12,6 +12,7 @@ from google import genai
 from google.genai import types
 
 from collections import deque
+import random
 
 # Load_dotenv() is used to load env variables from .env file instead of hardcoding them in. #
 from dotenv import load_dotenv
@@ -82,7 +83,7 @@ def main():
             # candidate is the first (and often only) candidate. There can be multiple candidates, we are only going to have one. #
             candidate = response.candidates[0]
 
-            print(f"Candidate Content Parts: {candidate.content.parts}\n")
+            #print(f"Candidate Content Parts: {candidate.content.parts}\n")
 
             # A part of a response is object containing different types of information. We are only interested in function_call and text. #
             part = candidate.content.parts[0]
@@ -115,10 +116,32 @@ def main():
 
             # Logic for responding if there is not a function_call. #
             elif part.text is not None:
-                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
 
-                print(response.text, flush=True)
-                #slow_print_text(response.text, 0.02)
+                refusal_matches = ["i am unable", "i'm unable", "i cannot", "i can't", "i am sorry", "i'm sorry", "i am programmed", "i'm programmed"]
+                lower_response = response.text.lower()
+
+                if (any(text in lower_response for text in refusal_matches)):
+                    player_actions = "Here are some actions you can try performing: 'Grab an Item', 'List your Inventory', 'Move Locations', 'Equip Armor/Weapon', 'Attack Enemy', 'Trade', 'Start Quest', 'Use an Item'."
+                    refusal_responses = [
+                        "What an odd request traveler.",
+                        "No spell in this realm can weave that outcome.",
+                        "Your words fall on deaf ears; none here can grant that.",
+                        "The world resists your command, as if the gods themselves shake their heads.",
+                        "Your plea drifts into the void, unanswered.",
+                        "The veil between worlds remains closed to such a request.",
+                        "Your command clangs against the iron laws of this realm.",
+                        "No merchant, monster, nor mortal will heed those words.",
+                        "A cold wind erases the very sound of your request."
+                    ]
+                    updated_response = f"{random.choice(refusal_responses)}\n{player_actions}"
+
+                    chat_history.append(types.Content(role="model", parts=[types.Part(text=updated_response)]))
+                    print(updated_response, flush=True)
+                    
+                else:
+                    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
+                    print(response.text, flush=True)
+                    #slow_print_text(response.text, 0.02)
             
         except Exception as e:
             print(f"Error generating response: {e}")
