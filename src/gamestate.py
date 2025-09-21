@@ -57,11 +57,11 @@ class GameState():
 
             If the Player asks to talk with a Character, generate responses based on the Character's description.
 
-            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Accept Quest from Character, Trade Character, Use Item.
             
             The adventurer is: {self.player.to_string()}.
 
-            Our current Zone is: {self.player.current_zone.to_string()}.
+            Our Zone / World is: {self.player.current_zone.to_string()}.
 
             Our current Point of Interest (POI) / Location is: {self.player.current_POI.to_string()}.
 
@@ -107,11 +107,11 @@ class GameState():
 
             If the Player asks to talk with a Character, generate responses based on the Character's description.
 
-            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy.
+            Actions our Player can perform: Grab Item, List Inventory, Move Location, Equip Item, Attack Enemy, Accept Quest from Character, Trade Character, Use Item.
             
             The adventurer is: {self.player.to_string()}.
 
-            Our current Zone is: {self.player.current_zone.to_string()}.
+            Our Zone / World is: {self.player.current_zone.to_string()}.
 
             Our current Point of Interest (POI) / Location is: {self.player.current_POI.to_string()}.
 

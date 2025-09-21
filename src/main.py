@@ -31,13 +31,16 @@ from gamestate import GameState
 
 def main():
 
-    player = Player(name="Jacko", health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.LAKE_OF_THOUGHTS, coins=100,
+    intro_text(intro_speed=0.03)
+
+    player_name = input("> ")
+
+    player = Player(name=player_name, health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
+                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=100,
                      description="Our fearless adventurer.")
 
-    #player = Character("Jacko", 100, [init.IRON_SWORD], None, 5, init.LAKEFRONT, init.LAKE_OF_THOUGHTS)
 
-    game_state = GameState(zones=[init.LAKE_OF_THOUGHTS],
+    game_state = GameState(zones=[init.EVERDUSK_VALE],
                            pois=[init.LAKEFRONT, init.MISTY_TANKARD],
                            characters=[init.HARKEN_BRISTLE, init.SYLVARA],
                            enemies=[init.GIANT_RAT],
@@ -98,6 +101,7 @@ def main():
                 config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
                 print(character_action + "\n", flush=True)
+                #slow_print_text(character_action)
 
                 # except Exception as e:
                 #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
@@ -137,18 +141,18 @@ def main():
 
                     chat_history.append(types.Content(role="model", parts=[types.Part(text=updated_response)]))
                     print(updated_response, flush=True)
+                    #slow_print_text(character_action)
                     
                 else:
                     chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
                     print(response.text, flush=True)
-                    #slow_print_text(response.text, 0.02)
+                    #slow_print_text(response.text)
             
         except Exception as e:
             print(f"Error generating response: {e}")
 
 
-
-def slow_print_text(text: str, delay: float = 0.03):
+def slow_print_text(text: str, delay: float = 0.015):
     for char in text:
         # Writes single character to stdout. #
         sys.stdout.write(char)
@@ -160,7 +164,21 @@ def slow_print_text(text: str, delay: float = 0.03):
         time.sleep(delay)
     
     sys.stdout.write("\n")
-                    
+
+
+def intro_text(intro_speed: float):
+    slow_print_text("You find yourself waking up at the Lakefront. The last thing you remember was the sensation of falling - faster and faster - and then the feeling of cool dew and wet earth. Your head aches something fierce.\n", intro_speed)
+
+    slow_print_text("A voice echos in your head, it has a soothing presence. 'Welcome back'.\n", intro_speed)
+
+    slow_print_text("Who are you and where am I? You ask the voice.\n", intro_speed)
+
+    slow_print_text("'You are in Everdusk Vale - a land bathed in perpetual twilight.'\n", intro_speed)
+
+    slow_print_text("You look around and see an indigo sky streaked with slow-moving auroras. Vast crystal spires float like lazy comets above the landscape, " \
+    "shedding shimmering aether dust that fuels both wonder and danger. Gravity feels slightly lighter; magic hums beneath every stone.\n", intro_speed)
+
+    slow_print_text("'Seek out the Dayheart - reassamble the components.' The voice commands. 'What will you call yourself on this iteration?'\n", intro_speed)
 
 
 if __name__ == "__main__":

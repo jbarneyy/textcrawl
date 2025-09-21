@@ -161,8 +161,8 @@ class Player(Character):
             
             case ItemType.MISC:
                 responses = [f"You fiddle with {item.name} for a while. It does not do much. Maybe you could sell it.",
-                             f"{item.name} clinks and rattles in your hand. Nothing magical happens, but it makes a satisfying sound.",
-                             f"You give {item.name} a gentle shake. It smells faintly of mystery.",
+                             f"{item.name} rests in your hand. Nothing magical happens.",
+                             f"You give {item.name} a gentle shake.",
                              f"{item.name} wobbles, then stops—almost like it wanted to dance.",
                              f"For a brief moment, {item.name} warms in your hand... or was that just your imagination?",
                              f"Nothing happens. Absolutely nothing. {item.name} seems smug about it.",

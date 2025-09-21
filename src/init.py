@@ -88,15 +88,19 @@ MISTY_TANKARD = POI("The Misty Tankard",
 
 
 # Initialize Zones #
-LAKE_OF_THOUGHTS = Zone("Lake of Thoughts",
+EVERDUSK_VALE = Zone("Everdusk Vale",
             [LAKEFRONT, MISTY_TANKARD],
-            "The Lake of Thoughts stretches before you, its surface unnaturally still — a mirror reflecting a sky streaked with lavender clouds and twin suns low on the horizon." \
-            "There is a firm breeze in the air, yet the water remains undisturbed. The scent of wet earth and touch of cool air envelops our adventurer." \
-            "This is where our adventure begins.")
+            description=("Everdusk Vale is a land bathed in perpetual twilight, an indigo sky streaked with slow-moving auroras. "
+            "Vast crystal spires float like lazy comets above the landscape, shedding shimmering aether dust that fuels both wonder and danger. "
+            "Gravity feels slightly lighter; magic hums beneath every stone. 10,000 years ago it was a sunlit kingdom ruled by the Celestine Dynasty, a council of archmages who mastered Solar Magic. "
+            "Legends tell of the Dayheart, a colossal crystal at the world's core that regulated sunlight and moonlight in perfect balance. Then 3,000 years ago The Moonfall took place - "
+            "a catastrophic ritual meant to draw more lunar energy for magical research went awry. The Dayheart shattered, plunging Everdusk into permanent twilight. "
+            "Fragments of the Dayheart scattered across the land, becoming the floating crystals that still orbit the vale. The Celestine vanished—some say ascended to the moon, others claim they fused with the crystals themselves. "
+            "Now in current day we enter the Age of Aether. Magic is abundant but unstable; reality itself bends in places. Factions vie to control the largest Dayheart shards, believing they can either restore the sun or unleash godlike power."))
 
 
 # Initialize Characters #
-HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, LAKE_OF_THOUGHTS, 10,
+HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                            description="""A grizzled, broad-shouldered dwarf with a beard like twisted iron and eyes that gleam with stubborn resolve. 
                            Once a master blacksmith of the Emberdeep Forges, he now runs the Misty Tankard tavern as both a barkeep 
                            and quiet keeper of local secrets. Harken speaks in a gravelly baritone, every word weighed like 
@@ -107,7 +111,7 @@ HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], [QUEST_H
                            floor—and a past filled with debts, alliances, and old grudges.
                             """)
 
-SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, LAKE_OF_THOUGHTS, 10,
+SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                     description="""A quick-witted half-elf bard with emerald eyes and a voice that can hush a rowdy tavern mid-brawl.
                     Sylvara wears a patchwork cloak of deep forest greens and dusky blues, each swatch telling a story of a place she has wandered.
                     She strums a weathered lute strung with silver-thread strings and always keeps a dagger hidden in her boot—“just in case the song does not work.”
