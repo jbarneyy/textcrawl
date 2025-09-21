@@ -150,4 +150,25 @@ class Player(Character):
                 self.items.remove(item)
 
                 return random.choice(responses) + f"\n{item.name} restores {item.power} health."
+            
+            case ItemType.QUEST:
+                responses = [f"You hold {item.name} aloft. Nothing happens... yet.",
+                             f"{item.name} trembles slightly in your hand, as if waiting for a proper place or moment.",
+                             f"You observe {item.name}. Perhaps its purpose will reveal itself in time.",
+                             f"{item.name} glows faintly but remains inert."]
+                
+                return random.choice(responses)
+            
+            case ItemType.MISC:
+                responses = [f"You fiddle with {item.name} for a while. It does not do much. Maybe you could sell it.",
+                             f"{item.name} clinks and rattles in your hand. Nothing magical happens, but it makes a satisfying sound.",
+                             f"You give {item.name} a gentle shake. It smells faintly of mystery.",
+                             f"{item.name} wobbles, then stops—almost like it wanted to dance.",
+                             f"For a brief moment, {item.name} warms in your hand... or was that just your imagination?",
+                             f"Nothing happens. Absolutely nothing. {item.name} seems smug about it.",
+                             f"{item.name} remains perfectly ordinary, despite your best efforts."]
+                
+                return random.choice(responses)
+                
+
     

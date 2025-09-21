@@ -47,10 +47,10 @@ SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana poti
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
 SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", False)
-RAT_TOOTH = Item("Rat Tooth", ItemType.MISC, None, "A crusty and bloody rat tooth.", True)
 
 # Initialize Item Quest #
 HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
+RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat tooth.", True)
 
 # Initialize Quests #
 QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10)

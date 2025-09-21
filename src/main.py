@@ -41,7 +41,7 @@ def main():
                            pois=[init.LAKEFRONT, init.MISTY_TANKARD],
                            characters=[init.HARKEN_BRISTLE, init.SYLVARA],
                            enemies=[init.GIANT_RAT],
-                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE, init.RAT_TOOTH],
+                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE, init.RAT_TOOTH, init.SMALL_FISH],
                            quests=[init.QUEST_MISTY_TANKARD, init.QUEST_HARKENS_POLE, init.QUEST_RAT_TOOTH],
                            player=player)
 
@@ -83,7 +83,7 @@ def main():
             # candidate is the first (and often only) candidate. There can be multiple candidates, we are only going to have one. #
             candidate = response.candidates[0]
 
-            #print(f"Candidate Content Parts: {candidate.content.parts}\n")
+            print(f"Candidate Content Parts: {candidate.content.parts}\n")
 
             # A part of a response is object containing different types of information. We are only interested in function_call and text. #
             part = candidate.content.parts[0]
