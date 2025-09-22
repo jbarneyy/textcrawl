@@ -11,5 +11,4 @@ class POI():
         self.is_open = is_open
 
     def to_string(self):
-        return f"Name: {self.name}, Description: {self.description}, Location: {self.location[0]} miles North by {self.location[1]} miles East, \
-        Items: {", ".join(map(Item.to_string, self.items))}, is_open: {self.is_open}"
+        return f"Name: {self.name}, Description: {self.description}, Items: {", ".join(map(Item.to_string, self.items))}, is_open: {self.is_open}"

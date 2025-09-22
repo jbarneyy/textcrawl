@@ -31,17 +31,17 @@ from gamestate import GameState
 
 def main():
 
-    intro_text(intro_speed=0.03)
+    #intro_text(intro_speed=0.03)
 
     player_name = input("> ")
 
     player = Player(name=player_name, health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=100,
+                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=10,
                      description="Our fearless adventurer.")
 
 
     game_state = GameState(zones=[init.EVERDUSK_VALE],
-                           pois=[init.LAKEFRONT, init.MISTY_TANKARD],
+                           pois=[init.LAKEFRONT, init.MISTY_TANKARD, init.BLEAKTHORN],
                            characters=[init.HARKEN_BRISTLE, init.SYLVARA],
                            enemies=[init.GIANT_RAT],
                            items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE, init.RAT_TOOTH, init.SMALL_FISH],
@@ -167,7 +167,7 @@ def slow_print_text(text: str, delay: float = 0.015):
 
 
 def intro_text(intro_speed: float):
-    slow_print_text("You find yourself waking up at the Lakefront. The last thing you remember was the sensation of falling - faster and faster - and then the feeling of cool dew and wet earth. Your head aches something fierce.\n", intro_speed)
+    slow_print_text("You find yourself waking up at the Singing Lake. The last thing you remember was the sensation of falling - faster and faster - and then the feeling of cool dew and wet earth. Your head aches something fierce.\n", intro_speed)
 
     slow_print_text("A voice echos in your head, it has a soothing presence. 'Welcome back'.\n", intro_speed)
 

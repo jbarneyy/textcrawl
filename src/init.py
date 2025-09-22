@@ -68,28 +68,37 @@ MISC = [SMALL_FISH, SMALL_STONE]
 
 
 # Initialize POIs #
-LAKEFRONT = POI("Lakefront",
-                "You are under the swaying branches of a gnarled willow tree, its long silver leaves dancing in the breeze like whispers of ancient secrets. " \
-                "You can see the Lake of Thoughts before you.",
+LAKEFRONT = POI("Singing Lake",
+                ("A vast, glassy lake that hums like a choir when moonlight touches its surface. Crystalline fish leap from the water trailing stardust. "
+                "The Singing Lake lies in a secluded hollow of Everdusk Vale, cradled by crystal-studded cliffs and veiled in soft silver mist. "
+                "Its waters are perfectly still except during the moon's zenith, when ripples form delicate concentric rings without wind. "
+                "At night, moonlight refracts through the floating Dayheart shards suspended above, causing the lake to hum in layered harmonies—tones so pure they vibrate through bone and memory. "
+                "Ancient moonwillow trees grow along the shore, their leaves chiming like soft bells when brushed by the lake's vibrations."),
                 (0, 0),
                 populate_random_items(IRON_WEAPONS, MISC, MISC, MISC) + [HARKENS_POLE],
                 True)
 
 MISTY_TANKARD = POI("The Misty Tankard",
-                    "Nestled at the edge of the shimmering Lake of Thoughts, The Misty Tankard is a small, weathered tavern with moss-covered shingles and warm amber light spilling from its foggy windows. " \
-                    "The wooden sign creaks gently in the breeze, etched with the image of a frothy mug and a drifting wisp of mist. " \
-                    "As adventurers step inside, they're greeted by the scent of oak smoke, salted fish, and a faint trace of lavender that seems to linger in the beams. " \
-                    "A low murmur of conversation, the clink of mugs, and the occasional distant loon call mix in the background. " \
-                    "Shelves behind the bar are stocked with strange colored bottles, local brews, and curious herbal infusions. " \
-                    "The tavern is warm and welcoming, its walls lined with faded maps, old fishing rods, and a massive mounted trout with one missing eye.",
-                    (1, 0),
+                    ("Nestled at the edge of the shimmering Lake of Thoughts, The Misty Tankard is a small, weathered tavern with moss-covered shingles and warm amber light spilling from its foggy windows. "
+                    "The wooden sign creaks gently in the breeze, etched with the image of a frothy mug and a drifting wisp of mist. "
+                    "As adventurers step inside, they're greeted by the scent of oak smoke, salted fish, and a faint trace of lavender that seems to linger in the beams. "
+                    "A low murmur of conversation, the clink of mugs, and the occasional distant loon call mix in the background. "
+                    "Shelves behind the bar are stocked with strange colored bottles, local brews, and curious herbal infusions. "
+                    "The tavern is warm and welcoming, its walls lined with faded maps, old fishing rods, and a massive mounted trout with one missing eye."),
+                    (2, 2),
                     populate_random_items(SMALL_CONSUMABLES, SMALL_CONSUMABLES, SMALL_CONSUMABLES) + [IRON_ARMOR],
                     True)
+
+BLEAKTHORN = POI("Bleakthorn Woods",
+                 ("An endless forest of silver-barked trees that bleed glowing blue sap. The canopy is so thick it feels like walking through a dream."),
+                 (5, 2),
+                 [SMALL_STONE],
+                 True)
 
 
 # Initialize Zones #
 EVERDUSK_VALE = Zone("Everdusk Vale",
-            [LAKEFRONT, MISTY_TANKARD],
+            [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN],
             description=("Everdusk Vale is a land bathed in perpetual twilight, an indigo sky streaked with slow-moving auroras. "
             "Vast crystal spires float like lazy comets above the landscape, shedding shimmering aether dust that fuels both wonder and danger. "
             "Gravity feels slightly lighter; magic hums beneath every stone. 10,000 years ago it was a sunlit kingdom ruled by the Celestine Dynasty, a council of archmages who mastered Solar Magic. "
