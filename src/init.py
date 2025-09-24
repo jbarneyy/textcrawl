@@ -42,7 +42,7 @@ IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better th
 
 # Initalize Item Consumables #
 SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True)
-SMALL_MP = Item("Small Mana Potion", ItemType.CONSUMABLE, 10, "A small mana potion, used to restore mana.", True)
+MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True)
 
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
@@ -62,7 +62,7 @@ QUEST_RAT_TOOTH = Quest("Return Rat Tooth", "Return the Giant Rat's tooth to Syl
 
 # Group types of items together to be used in POI generation for randomness. #
 IRON_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
-SMALL_CONSUMABLES = [SMALL_HP, SMALL_MP]
+SMALL_CONSUMABLES = [SMALL_HP]
 MISC = [SMALL_FISH, SMALL_STONE]
 
 
@@ -82,7 +82,7 @@ MISTY_TANKARD = POI("The Misty Tankard",
                     ("Nestled at the edge of the shimmering Lake of Thoughts, The Misty Tankard is a small, weathered tavern with moss-covered shingles and warm amber light spilling from its foggy windows. "
                     "The wooden sign creaks gently in the breeze, etched with the image of a frothy mug and a drifting wisp of mist. "
                     "As adventurers step inside, they're greeted by the scent of oak smoke, salted fish, and a faint trace of lavender that seems to linger in the beams. "
-                    "A low murmur of conversation, the clink of mugs, and the occasional distant loon call mix in the background. "
+                    "A low murmur of conversation, the clink of mugs, and the occasional distant loon call mix in the background. There are many people sampling the bar's drink. "
                     "Shelves behind the bar are stocked with strange colored bottles, local brews, and curious herbal infusions. "
                     "The tavern is warm and welcoming, its walls lined with faded maps, old fishing rods, and a massive mounted trout with one missing eye."),
                     (2, 2),
@@ -90,15 +90,31 @@ MISTY_TANKARD = POI("The Misty Tankard",
                     True)
 
 BLEAKTHORN = POI("Bleakthorn Woods",
-                 ("An endless forest of silver-barked trees that bleed glowing blue sap. The canopy is so thick it feels like walking through a dream."),
+                 ("An endless forest of silver-barked trees that bleed glowing blue sap. The canopy is so thick it feels like walking through a dream. "
+                 "The forest canopy is so dense it blocks what little starlight Everdusk provides, creating a perpetual twilight haze even darker than the rest of the vale. "
+                 "The air smells faintly of iron and crushed herbs, and every sound—rustling leaves, distant howls—seems to echo as though the forest itself is listening. "
+                 "Once a sacred grove tended by Celestine moon-priests. After the Moonfall, the grove's protective wards shattered, allowing the woods to grow unchecked. "
+                 "Ancient texts refer to it as The Choir of Roots, suggesting the forest once sang in harmony with the Singing Lake before the Dayheart shattered."),
                  (5, 2),
                  [SMALL_STONE],
                  True)
 
+MOONVEIL = POI("Moonveil Citadel",
+               ("A shimmering city built atop a ring of hovering platforms connected by glowing bridges. The citadel's spires are infused with moonstone that channels raw aether. "
+               "Moonstone bridges span the empty air, glowing faintly as if lit from within. Thin waterfalls of luminous aether cascade from the floating structures into the mist below, "
+               "creating a perpetual silver rain that reflects the indigo sky. Moonveil is both city and arcane engine, its architecture shaped by ancient Celestine magic. "
+               "Gravity-defying bridges sway gently but never break. Some move like living things, subtly shifting routes based on lunar phases. "
+               "Vertical hanging gardens of luminous moss and moonwillow trees provide air purification and soft light."),
+               (7, 4),
+               [SMALL_STONE],
+               False)
+
+
+
 
 # Initialize Zones #
 EVERDUSK_VALE = Zone("Everdusk Vale",
-            [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN],
+            [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL],
             description=("Everdusk Vale is a land bathed in perpetual twilight, an indigo sky streaked with slow-moving auroras. "
             "Vast crystal spires float like lazy comets above the landscape, shedding shimmering aether dust that fuels both wonder and danger. "
             "Gravity feels slightly lighter; magic hums beneath every stone. 10,000 years ago it was a sunlit kingdom ruled by the Celestine Dynasty, a council of archmages who mastered Solar Magic. "
@@ -130,3 +146,9 @@ SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1
 
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
+
+
+ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
+ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR]
+ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
+ITEM_
