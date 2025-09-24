@@ -46,7 +46,7 @@ MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium heal
 
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
-SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", False)
+SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", True)
 
 # Initialize Item Quest #
 HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
@@ -125,7 +125,7 @@ EVERDUSK_VALE = Zone("Everdusk Vale",
 
 
 # Initialize Characters #
-HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_MP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
+HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_HP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                            description="""A grizzled, broad-shouldered dwarf with a beard like twisted iron and eyes that gleam with stubborn resolve. 
                            Once a master blacksmith of the Emberdeep Forges, he now runs the Misty Tankard tavern as both a barkeep 
                            and quiet keeper of local secrets. Harken speaks in a gravelly baritone, every word weighed like 
@@ -148,7 +148,21 @@ SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
 
 
+# Initialize Lists to pass to GameState() in main.py #
+ZONES = [EVERDUSK_VALE]
+
+POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL]
+
+CHARACTERS = [HARKEN_BRISTLE, SYLVARA]
+
+ENEMIES = [GIANT_RAT]
+
 ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
 ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR]
 ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
-ITEM_
+ITEM_MISC = [SMALL_FISH, SMALL_STONE]
+ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH]
+
+ITEMS = ITEM_WEAPONS + ITEM_ARMORS + ITEM_CONSUMABLES + ITEM_MISC + ITEM_QUEST
+
+QUESTS = [QUEST_MISTY_TANKARD, QUEST_HARKENS_POLE, QUEST_RAT_TOOTH]

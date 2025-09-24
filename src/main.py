@@ -40,13 +40,7 @@ def main():
                      description="Our fearless adventurer.")
 
 
-    game_state = GameState(zones=[init.EVERDUSK_VALE],
-                           pois=[init.LAKEFRONT, init.MISTY_TANKARD, init.BLEAKTHORN],
-                           characters=[init.HARKEN_BRISTLE, init.SYLVARA],
-                           enemies=[init.GIANT_RAT],
-                           items=[init.IRON_DAGGER, init.SMALL_HP, init.SMALL_MP, init.HARKENS_POLE, init.RAT_TOOTH, init.SMALL_FISH],
-                           quests=[init.QUEST_MISTY_TANKARD, init.QUEST_HARKENS_POLE, init.QUEST_RAT_TOOTH],
-                           player=player)
+    game_state = GameState(zones=init.ZONES, pois=init.POIS, characters=init.CHARACTERS, enemies=init.ENEMIES, items=init.ITEMS, quests=init.QUESTS, player=player)
 
     # Reads the .env file in the root of project. Loads the variables into the environment. #
     load_dotenv()
