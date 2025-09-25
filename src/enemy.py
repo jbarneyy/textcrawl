@@ -19,5 +19,5 @@ class Enemy():
         return f"Name: {self.name}, Health: {self.health}, Defence: {self.defence}, Level: {self.level}, Current POI: {self.current_POI.name}"
     
     def roll_attack(self):
-        base_damage = (self.level * 10)
+        base_damage = (self.level * 5)
         return random.randint(base_damage, base_damage + 10)

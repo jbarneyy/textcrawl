@@ -83,64 +83,66 @@ def main():
             print(f"Candidate Content Parts: {candidate.content.parts}\n")
 
             # A part of a response is object containing different types of information. We are only interested in function_call and text. #
-            part = candidate.content.parts[0]
+            #part = candidate.content.parts[0]
+            parts = candidate.content.parts
+            
+            for part in parts:
+                # Logic for handling a function_call by Gemini. #
+                if part.function_call is not None:
 
-            # Logic for handling a function_call by Gemini. #
-            if part.function_call is not None:
+                    character_action = f"{call_function(part.function_call, player, game_state)}"
 
-                character_action = f"{call_function(part.function_call, player, game_state)}"
+                    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
 
-                chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{character_action}")]))
+                    config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
 
-                config = types.GenerateContentConfig(max_output_tokens=100, system_instruction=game_state.get_gamestate(), tools=tools)
-
-                print(character_action + "\n", flush=True)
-                #slow_print_text(character_action)
-
-                # except Exception as e:
-                #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
-                    
-                #     system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
-                #     f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
-
-                #     chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
-
-                #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
-
-                #     print(response.text)
-
-
-
-
-            # Logic for responding if there is not a function_call. #
-            elif part.text is not None:
-
-                refusal_matches = ["i am unable", "i'm unable", "i cannot", "i can't", "i am sorry", "i'm sorry", "i am programmed", "i'm programmed"]
-                lower_response = response.text.lower()
-
-                if (any(text in lower_response for text in refusal_matches)):
-                    player_actions = "Here are some actions you can try performing: 'Grab an Item', 'List your Inventory', 'Move Locations', 'Equip Armor/Weapon', 'Attack Enemy', 'Trade', 'Start Quest', 'Use an Item'."
-                    refusal_responses = [
-                        "What an odd request traveler.",
-                        "No spell in this realm can weave that outcome.",
-                        "Your words fall on deaf ears; none here can grant that.",
-                        "The world resists your command, as if the gods themselves shake their heads.",
-                        "Your plea drifts into the void, unanswered.",
-                        "The veil between worlds remains closed to such a request.",
-                        "Your command clangs against the iron laws of this realm.",
-                        "No merchant, monster, nor mortal will heed those words.",
-                        "A cold wind erases the very sound of your request."
-                    ]
-                    updated_response = f"{random.choice(refusal_responses)}\n{player_actions}"
-
-                    chat_history.append(types.Content(role="model", parts=[types.Part(text=updated_response)]))
-                    print(updated_response, flush=True)
+                    print(character_action + "\n", flush=True)
                     #slow_print_text(character_action)
-                    
-                else:
-                    chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
-                    print(response.text, flush=True)
-                    #slow_print_text(response.text)
+
+                    # except Exception as e:
+                    #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
+                        
+                    #     system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
+                    #     f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
+
+                    #     chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
+
+                    #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
+
+                    #     print(response.text)
+
+
+
+
+                # Logic for responding if there is not a function_call. #
+                elif part.text is not None:
+
+                    refusal_matches = ["i am unable", "i'm unable", "i cannot", "i can't", "i am sorry", "i'm sorry", "i am programmed", "i'm programmed"]
+                    lower_response = part.text.lower()
+
+                    if (any(text in lower_response for text in refusal_matches)):
+                        player_actions = "Here are some actions you can try performing: 'Grab an Item', 'List your Inventory', 'Move Locations', 'Equip Armor/Weapon', 'Attack Enemy', 'Trade', 'Start Quest', 'Use an Item'."
+                        refusal_responses = [
+                            "What an odd request traveler.",
+                            "No spell in this realm can weave that outcome.",
+                            "Your words fall on deaf ears; none here can grant that.",
+                            "The world resists your command, as if the gods themselves shake their heads.",
+                            "Your plea drifts into the void, unanswered.",
+                            "The veil between worlds remains closed to such a request.",
+                            "Your command clangs against the iron laws of this realm.",
+                            "No merchant, monster, nor mortal will heed those words.",
+                            "A cold wind erases the very sound of your request."
+                        ]
+                        updated_response = f"{random.choice(refusal_responses)}\n{player_actions}"
+
+                        chat_history.append(types.Content(role="model", parts=[types.Part(text=updated_response)]))
+                        print(updated_response, flush=True)
+                        #slow_print_text(character_action)
+                        
+                    else:
+                        chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{part.text}")]))
+                        print(part.text, flush=True)
+                        #slow_print_text(part.text)
             
         except Exception as e:
             print(f"Error generating response: {e}")

@@ -51,7 +51,7 @@ class GameState():
 
             Keep responses between 20 and 120 words.
 
-            Always attempt to call a function from tools over returning text, if function is available / usable.
+            ALWAYS attempt to call a function from tools over returning text, if function is available / usable.
 
             Do not invent new Zones, POIs, NPCs / Characters, Enemies, Items, or Quests.
 
@@ -101,7 +101,7 @@ class GameState():
 
             Keep responses between 20 and 120 words.
 
-            Always attempt to call a function from tools over returning text, if function is available / usable.
+            ALWAYS attempt to call a function from tools over returning text, if function is available / usable.
 
             Do not invent new Zones, POIs, NPCs / Characters, Enemies, Items, or Quests.
 

@@ -31,6 +31,13 @@ def return_harkens_pole(player: Player, gamestate: GameState) -> bool:
 def return_rat_tooth(player: Player, gamestate: GameState) -> bool:
     return player.current_POI is gamestate.pois.get("The Misty Tankard") and gamestate.items.get("Rat Tooth") in gamestate.characters.get("Sylvara Reedwhistle").items
 
+def collect_bark_map(player: Player, gamestate: GameState) -> bool:
+    if player.current_POI is gamestate.pois.get("Bleakthorn Woods") and gamestate.items.get("Bark Map") in player.items:
+        gamestate.pois.get("Moonveil Citadel").is_open = True
+        return True
+    else:
+        return False
+
 # Initialize Item Weapons #
 IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True)
 IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True)
@@ -47,10 +54,12 @@ MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium heal
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
 SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", True)
+OLD_MAP = Item("Old Map", ItemType.MISC, None, "An old crusty map, can't even tell where North is.", True, 10)
 
 # Initialize Item Quest #
 HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
 RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat tooth.", True)
+BARK_MAP = Item("Bark Map", ItemType.QUEST, None, "A map made of the ent's bark, showing a path to Moonveil Citadel.", True, 20)
 
 # Initialize Quests #
 QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10)
@@ -58,6 +67,8 @@ QUEST_HARKENS_POLE = Quest("Harken's Fishing Pole", "Return Harken's fishing pol
 "He asks that you help him return his prized fishing rod, last seen down at the Lakefront. He was chased away by a Giant Rat while fishing there last.", return_harkens_pole, False, 50)
 QUEST_RAT_TOOTH = Quest("Return Rat Tooth", "Return the Giant Rat's tooth to Sylvara.", "Sylvara's emerald eyes look at you with hope. Please kill that foul rat seen in the Lakefront and bring me confirmation that the deed is done.",
                         return_rat_tooth, False, 50)
+QUEST_BARK_MAP = Quest("Collect Bark Map", "To unlock the path to Moonveil Citadel, collect a bark map from the back of one of the Blue Ents that roam Bleakthorn Woods.",
+                       "Neric rises from listening to the ground, 'Collect a Bark Map from an ent to unlock the path to Moonveil, I would pay to know this path as well.' What an odd man.", collect_bark_map, False, 100)
 
 
 # Group types of items together to be used in POI generation for randomness. #
@@ -144,8 +155,18 @@ SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1
                     Rumor has it she is searching for a long-lost lover… or perhaps a priceless artifact she won in a wager and foolishly lost.
                     """)
 
+NERIC = Character("Neric the Wayfarer", 100, [OLD_MAP, OLD_MAP], [QUEST_BARK_MAP], 1, BLEAKTHORN, EVERDUSK_VALE, 10, 
+                  ("A seasoned traveler and self-proclaimed cartomancer who roams Bleakthorn Woods mapping shifting paths and magical anomalies. "
+                  "Neric sells living maps that redraw themselves nightly, but their accuracy depends on both the moon's phase and the buyer's own intentions. "
+                  "Wears a patched longcoat lined with pockets that emit faint glows, each pocket storing a different magical compass or ink bottle. "
+                  "Claims the paths whisper to him, often pausing mid-conversation to listen to the ground."))
+
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
+LAKE_SNAKE = Enemy("Lake Snake", 25, 1, None, 2, LAKEFRONT)
+
+BLUE_ENT = Enemy("Blue Ent", 50, 1, [BARK_MAP], 3, BLEAKTHORN)
+
 
 
 # Initialize Lists to pass to GameState() in main.py #
@@ -153,16 +174,16 @@ ZONES = [EVERDUSK_VALE]
 
 POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL]
 
-CHARACTERS = [HARKEN_BRISTLE, SYLVARA]
+CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC]
 
-ENEMIES = [GIANT_RAT]
+ENEMIES = [GIANT_RAT, LAKE_SNAKE, BLUE_ENT]
 
 ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
 ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR]
 ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
-ITEM_MISC = [SMALL_FISH, SMALL_STONE]
-ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH]
+ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP]
+ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP]
 
 ITEMS = ITEM_WEAPONS + ITEM_ARMORS + ITEM_CONSUMABLES + ITEM_MISC + ITEM_QUEST
 
-QUESTS = [QUEST_MISTY_TANKARD, QUEST_HARKENS_POLE, QUEST_RAT_TOOTH]
+QUESTS = [QUEST_MISTY_TANKARD, QUEST_HARKENS_POLE, QUEST_RAT_TOOTH, QUEST_BARK_MAP]

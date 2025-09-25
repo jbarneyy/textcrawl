@@ -117,14 +117,14 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
                 if (did_player_levelup):
                     print(f"Congratulations! You have gained a level! You are now level: {player.level}.")
 
-                dropped_items = ""
-                for item in target_enemy.items:
-                    player.items.append(item)
-                    dropped_items += f"{item.name}, "
+                if (target_enemy.items is not None):
+                    dropped_items = ""
+                    for item in target_enemy.items:
+                        player.items.append(item)
+                        dropped_items += f"{item.name}, "
                 
-                print(f"You take {dropped_items.rstrip(", ")} from {target_enemy.name}.")
+                    print(f"You take {dropped_items.rstrip(", ")} from {target_enemy.name}.")
                 
-
                 del game_state.enemies[target_enemy.name]
                 game_state.update_gamestate()
                 
