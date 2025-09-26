@@ -161,6 +161,11 @@ NERIC = Character("Neric the Wayfarer", 100, [OLD_MAP, OLD_MAP], [QUEST_BARK_MAP
                   "Wears a patched longcoat lined with pockets that emit faint glows, each pocket storing a different magical compass or ink bottle. "
                   "Claims the paths whisper to him, often pausing mid-conversation to listen to the ground."))
 
+SERAPHINE = Character(name="Seraphine Veyra", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10, 
+                      description=("A pale, silver-eyed elf who tends the Citadel's moonlit archives. Her robes shimmer like frost on crystal, and a faint smell of lavender follows her. "
+                      "Soft-spoken but relentless in pursuit of lost knowledge. Speaks in careful, poetic sentences. "
+                      "Has a commanding presence about herself, she seeks out individuals who share her passions."))
+
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
 LAKE_SNAKE = Enemy("Lake Snake", 25, 1, None, 2, LAKEFRONT)
@@ -174,7 +179,7 @@ ZONES = [EVERDUSK_VALE]
 
 POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL]
 
-CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC]
+CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE]
 
 ENEMIES = [GIANT_RAT, LAKE_SNAKE, BLUE_ENT]
 
