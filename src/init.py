@@ -39,9 +39,13 @@ def collect_bark_map(player: Player, gamestate: GameState) -> bool:
         return False
 
 # Initialize Item Weapons #
-IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True)
-IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True)
-IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet.", True)
+IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True, 5)
+IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True, 5)
+IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet.", True, 5)
+
+STEEL_SWORD = Item("Steel Sword", ItemType.WEAPON, 8, "Tempered iron with carbon; sharper and more durable than iron.", True, 20)
+STEEL_WARHAMMER = Item("Steel Warhammer", ItemType.WEAPON, 8, "Tempered iron with carbon; in the shape of a hammer.", True, 25)
+
 
 # Initalize Item Armors #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True)
@@ -166,6 +170,15 @@ SERAPHINE = Character(name="Seraphine Veyra", health=100, items=None, quests=Non
                       "Soft-spoken but relentless in pursuit of lost knowledge. Speaks in careful, poetic sentences. "
                       "Has a commanding presence about herself, she seeks out individuals who share her passions."))
 
+DORIAN = Character(name="Dorian Krail", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+                   description=("Warden of Moonveil Citadel's guard. A scarred human veteran clad in half-plate etched with lunar runes. His left gauntlet bears the sigil of the Citadel's royal guard. "
+                   "Gruff, impatient, but fiercely honorable. Prefers action to words. "))
+
+MORWEN = Character(name="Morwen Lyric", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+                   description=("An elderly half-orc priestess with luminous white hair and a silver bell-staff. She keeps the Citadel's ceremonial bells in perfect harmony. "
+                   "She is warm and grandmotherly, but cryptic when speaking of omens. She tends to ring her bell-staff when she is preoccupied or nervous. "
+                   "Morwen claims to know where the location of one of the Dayheart shards, but will need some help before revealing the location."))
+
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
 LAKE_SNAKE = Enemy("Lake Snake", 25, 1, None, 2, LAKEFRONT)
@@ -179,11 +192,11 @@ ZONES = [EVERDUSK_VALE]
 
 POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL]
 
-CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE]
+CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE, DORIAN, MORWEN]
 
 ENEMIES = [GIANT_RAT, LAKE_SNAKE, BLUE_ENT]
 
-ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET]
+ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET, STEEL_SWORD, STEEL_WARHAMMER]
 ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR]
 ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
 ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP]
