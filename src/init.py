@@ -48,16 +48,16 @@ STEEL_WARHAMMER = Item("Steel Warhammer", ItemType.WEAPON, 8, "Tempered iron wit
 
 
 # Initalize Item Armors #
-LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True)
-IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True)
+LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True, 5)
+IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True, 15)
 
 # Initalize Item Consumables #
-SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True)
-MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True)
+SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True, 10)
+MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True, 20)
 
 # Initialize Item Misc #
-SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True)
-SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", True)
+SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True, 2)
+SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", True, 1)
 OLD_MAP = Item("Old Map", ItemType.MISC, None, "An old crusty map, can't even tell where North is.", True, 10)
 
 # Initialize Item Quest #
@@ -66,13 +66,15 @@ RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat too
 BARK_MAP = Item("Bark Map", ItemType.QUEST, None, "A map made of the ent's bark, showing a path to Moonveil Citadel.", True, 20)
 
 # Initialize Quests #
-QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10)
+QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10, "You find your way to the Misty Tankard. The first step in a long adventure.")
 QUEST_HARKENS_POLE = Quest("Harken's Fishing Pole", "Return Harken's fishing pole to him.", "Harken looks to you with his eyes of stubborn resolve. " \
-"He asks that you help him return his prized fishing rod, last seen down at the Lakefront. He was chased away by a Giant Rat while fishing there last.", return_harkens_pole, False, 50)
+"He asks that you help him return his prized fishing rod, last seen down at the Lakefront. He was chased away by a Giant Rat while fishing there last.", return_harkens_pole, False, 50, 
+"Harken gives you a stern nod of approval. 'Thank you lad, tonight's drinks are on me.'")
 QUEST_RAT_TOOTH = Quest("Return Rat Tooth", "Return the Giant Rat's tooth to Sylvara.", "Sylvara's emerald eyes look at you with hope. Please kill that foul rat seen in the Lakefront and bring me confirmation that the deed is done.",
-                        return_rat_tooth, False, 50)
+                        return_rat_tooth, False, 50, "You rid yourself of the stinky rat tooth. Wondering what Sylvara will use it for.")
 QUEST_BARK_MAP = Quest("Collect Bark Map", "To unlock the path to Moonveil Citadel, collect a bark map from the back of one of the Blue Ents that roam Bleakthorn Woods.",
-                       "Neric rises from listening to the ground, 'Collect a Bark Map from an ent to unlock the path to Moonveil, I would pay to know this path as well.' What an odd man.", collect_bark_map, False, 100)
+                       "Neric rises from listening to the ground, 'Collect a Bark Map from an ent to unlock the path to Moonveil, I would pay to know this path as well.' What an odd man.", collect_bark_map, False, 100,
+                       "You see a pattern on the back of the bark map, showing a faint outline of the route to Moonveil Citadel.")
 
 
 # Group types of items together to be used in POI generation for randomness. #
