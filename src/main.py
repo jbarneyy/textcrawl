@@ -35,8 +35,8 @@ def main():
 
     player_name = input("> ")
 
-    player = Player(name=player_name, health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=10,
+    player = Player(name=player_name, health=100, items=[init.SMALL_HP, init.RUNED_SWORD_BOT, init.RUNED_SWORD_TOP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
+                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.MOONVEIL, current_zone=init.EVERDUSK_VALE, coins=10,
                      description="Our fearless adventurer.")
 
 
@@ -148,6 +148,11 @@ def main():
             print(f"Error generating response: {e}")
 
 
+        if (check_player_alive(player) is False):
+            print("All adventures must come to an end. It's a shame you died without completing your quest. See you in the next iteration.")
+            break
+
+
 def slow_print_text(text: str, delay: float = 0.015):
     for char in text:
         # Writes single character to stdout. #
@@ -176,6 +181,13 @@ def intro_text(intro_speed: float):
 
     slow_print_text("'Seek out the Dayheart - reassamble the components.' The voice commands. 'What will you call yourself on this iteration?'\n", intro_speed)
 
+
+def check_player_alive(player: Player) -> bool:
+    if (player.health <= 0):
+        return False
+    else:
+        return True
+    
 
 if __name__ == "__main__":
     main()

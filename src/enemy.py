@@ -20,4 +20,4 @@ class Enemy():
     
     def roll_attack(self):
         base_damage = (self.level * 5)
-        return random.randint(base_damage, base_damage + 10)
+        return random.randint(base_damage, base_damage + 5)

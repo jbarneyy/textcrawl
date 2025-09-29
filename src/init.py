@@ -37,6 +37,16 @@ def collect_bark_map(player: Player, gamestate: GameState) -> bool:
         return True
     else:
         return False
+    
+def return_runed_sword(player: Player, gamestate: GameState) -> bool:
+    if (player.current_POI is gamestate.pois.get("Moonveil Citadel") and gamestate.items.get("Runed Sword Top Shard") in gamestate.characters.get("Dorian Krail").items and
+        gamestate.items.get("Runed Sword Bottom Shard") in gamestate.characters.get("Dorian Krail").items):
+        player.items.append(gamestate.items.get("Runed Steel Sword"))
+        return True
+    else:
+        return False
+    
+
 
 # Initialize Item Weapons #
 IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems rusty.", True, 5)
@@ -47,7 +57,7 @@ STEEL_DAGGER = Item("Steel Dagger", ItemType.WEAPON, 7, "Looks more potent than 
 STEEL_SWORD = Item("Steel Sword", ItemType.WEAPON, 9, "Tempered iron with carbon; sharper and more durable than iron.", True, 20)
 STEEL_WARHAMMER = Item("Steel Warhammer", ItemType.WEAPON, 9, "Tempered iron with carbon; in the shape of a hammer.", True, 25)
 
-RUNED_STEEL_SWORD = Item("Runed Steel Sword", ItemType.WEAPON, 14, "Steel blade etched with runes, they shimmer with potential.", True, 40)
+RUNED_STEEL_SWORD = Item("Runed Steel Sword", ItemType.WEAPON, 25, "Steel blade etched with runes, they shimmer with potential.", True, 40)
 
 # Initalize Item Armors #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True, 5)
@@ -76,17 +86,28 @@ DICE = Item("Wooden Dice", ItemType.MISC, None, "Corners rounded from hundreds o
 HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
 RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat tooth.", True, 0)
 BARK_MAP = Item("Bark Map", ItemType.QUEST, None, "A map made of the ent's bark, showing a path to Moonveil Citadel.", True, 20)
+RUNED_SWORD_TOP = Item("Runed Sword Top Shard", ItemType.QUEST, None, "Top shard of Dorian's runed steel sword.", True, 20)
+RUNED_SWORD_BOT = Item("Runed Sword Bottom Shard", ItemType.QUEST, None, "Bottom shard of Dorian's runed steel sword.", True, 20)
 
 # Initialize Quests #
 QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10, "You find your way to the Misty Tankard. The first step in a long adventure.")
+
 QUEST_HARKENS_POLE = Quest("Harken's Fishing Pole", "Return Harken's fishing pole to him.", "Harken looks to you with his eyes of stubborn resolve. " \
 "He asks that you help him return his prized fishing rod, last seen down at the Lakefront. He was chased away by a Giant Rat while fishing there last.", return_harkens_pole, False, 50, 
 "Harken gives you a stern nod of approval. 'Thank you lad, tonight's drinks are on me.'")
+
 QUEST_RAT_TOOTH = Quest("Return Rat Tooth", "Return the Giant Rat's tooth to Sylvara.", "Sylvara's emerald eyes look at you with hope. Please kill that foul rat seen in the Lakefront and bring me confirmation that the deed is done.",
                         return_rat_tooth, False, 50, "You rid yourself of the stinky rat tooth. Wondering what Sylvara will use it for.")
+
 QUEST_BARK_MAP = Quest("Collect Bark Map", "To unlock the path to Moonveil Citadel, collect a bark map from the back of one of the Blue Ents that roam Bleakthorn Woods.",
                        "Neric rises from listening to the ground, 'Collect a Bark Map from an ent to unlock the path to Moonveil, I would pay to know this path as well.' What an odd man.", collect_bark_map, False, 100,
                        "You see a pattern on the back of the bark map, showing a faint outline of the route to Moonveil Citadel.")
+
+QUEST_RUNED_SWORD = Quest(name="Reforge Steel-Runed Sword", description="Bring Dorian back both pieces of his runed sword.", 
+                          accept_message="Dorian looks at you with steeled eyes. 'Someone like you will need a better weapon to deal with what's out there.' Find the two runed shards in the Catacombs and return them.",
+                          check_complete=return_runed_sword, is_complete=False, xp_reward=100, 
+                          complete_message="Dorian breaths icy breath over the two shards and recombines them into a runed steel sword. He hands it to you gently as mist seeps off the blade.")
+
 
 
 # Group types of items together to be used in POI generation for randomness. #
@@ -193,7 +214,7 @@ SERAPHINE = Character(name="Seraphine Veyra", health=100, items=[MEDIUM_HP, MEDI
                       "Soft-spoken but relentless in pursuit of lost knowledge. Speaks in careful, poetic sentences. "
                       "Has a commanding presence about herself, she seeks out individuals who share her passions."))
 
-DORIAN = Character(name="Dorian Krail", health=100, items=[STEEL_WARHAMMER, STEEL_SWORD, STEEL_ARMOR], quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+DORIAN = Character(name="Dorian Krail", health=100, items=[STEEL_WARHAMMER, STEEL_SWORD, STEEL_ARMOR], quests=[QUEST_RUNED_SWORD], level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
                    description=("Warden of Moonveil Citadel's guard. A scarred human veteran clad in half-plate etched with lunar runes. His left gauntlet bears the sigil of the Citadel's royal guard. "
                    "Gruff, impatient, but fiercely honorable. Prefers action to words. "
                    "Has some good steel to trade for the right price. Dorian talks of a runed sword he lost in the Catacombs a few months back."))
@@ -206,8 +227,11 @@ MORWEN = Character(name="Morwen Lyric", health=100, items=[KNIFE, DICE, ROPE], q
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
 LAKE_SNAKE = Enemy("Lake Snake", 25, 1, None, 2, LAKEFRONT)
+BEAR = Enemy("Grizzled Bear", 30, 1, None, 2, LAKEFRONT)
 
 BLUE_ENT = Enemy("Blue Ent", 50, 1, [BARK_MAP], 3, BLEAKTHORN)
+RED_ENT = Enemy("Red Ent", 50, 1, None, 3, BLEAKTHORN)
+GREEN_ENT = Enemy("Green Ent", 50, 1, None, 3, BLEAKTHORN)
 
 
 
@@ -218,13 +242,13 @@ POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL, MOONVEIL_CATACOMB]
 
 CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE, DORIAN, MORWEN]
 
-ENEMIES = [GIANT_RAT, LAKE_SNAKE, BLUE_ENT]
+ENEMIES = [GIANT_RAT, LAKE_SNAKE, BEAR, BLUE_ENT, RED_ENT, GREEN_ENT]
 
 ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET, STEEL_DAGGER, STEEL_SWORD, STEEL_WARHAMMER, RUNED_STEEL_SWORD]
 ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR, STEEL_ARMOR]
 ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
 ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP, SATCHEL, WATERFLASK, JUNIPER, ROPE, LANTERN, SPADE, FLETCHING, KNIFE, DICE]
-ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP]
+ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP, RUNED_SWORD_TOP, RUNED_SWORD_BOT]
 
 ITEMS = ITEM_WEAPONS + ITEM_ARMORS + ITEM_CONSUMABLES + ITEM_MISC + ITEM_QUEST
 

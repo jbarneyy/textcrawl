@@ -110,6 +110,9 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
             print(game_state.attack_enemy(player, target_enemy) + "\n")
             game_state.update_gamestate()
 
+            if (player.health <= 0):
+                return "You have been defeated."
+
             if (target_enemy.health <= 0):
                 print(f"{player.name} has defeated {target_enemy.name}!\nYou have gained {target_enemy.xp_reward} experience!")
 

@@ -94,7 +94,7 @@ class Player(Character):
 
     def roll_attack(self):
         base_damage = (self.level * 2) + self.weapon.power
-        return random.randint(base_damage, base_damage + 10)
+        return random.randint(base_damage, base_damage + 5)
     
 
     def gain_xp(self, xp_amount: int) -> bool:
