@@ -43,26 +43,38 @@ IRON_SWORD = Item("Iron Sword", ItemType.WEAPON, 5, "A simple iron sword, seems 
 IRON_DAGGER = Item("Iron Dagger", ItemType.WEAPON, 4, "A simple iron dagger, small and sharp.", True, 5)
 IRON_HATCHET = Item("Iron Hatchet", ItemType.WEAPON, 4, "A simple iron hatchet.", True, 5)
 
-STEEL_SWORD = Item("Steel Sword", ItemType.WEAPON, 8, "Tempered iron with carbon; sharper and more durable than iron.", True, 20)
-STEEL_WARHAMMER = Item("Steel Warhammer", ItemType.WEAPON, 8, "Tempered iron with carbon; in the shape of a hammer.", True, 25)
+STEEL_DAGGER = Item("Steel Dagger", ItemType.WEAPON, 7, "Looks more potent than iron.", True, 17)
+STEEL_SWORD = Item("Steel Sword", ItemType.WEAPON, 9, "Tempered iron with carbon; sharper and more durable than iron.", True, 20)
+STEEL_WARHAMMER = Item("Steel Warhammer", ItemType.WEAPON, 9, "Tempered iron with carbon; in the shape of a hammer.", True, 25)
 
+RUNED_STEEL_SWORD = Item("Runed Steel Sword", ItemType.WEAPON, 14, "Steel blade etched with runes, they shimmer with potential.", True, 40)
 
 # Initalize Item Armors #
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True, 5)
 IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True, 15)
+STEEL_ARMOR = Item("Steel Armor", ItemType.ARMOR, 20, "Steel-hardened battle armor, seems effective.", True, 30)
 
 # Initalize Item Consumables #
-SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True, 10)
-MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True, 20)
+SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True, 5)
+MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True, 10)
 
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True, 2)
 SMALL_STONE = Item("Small Stone", ItemType.MISC, None, "A little stone.", True, 1)
 OLD_MAP = Item("Old Map", ItemType.MISC, None, "An old crusty map, can't even tell where North is.", True, 10)
+SATCHEL = Item("Traveler's Satchel", ItemType.MISC, None, "Well-worn leather bag with faint scorch marks from campfires.", True, 5)
+WATERFLASK = Item("Tin Waterflask", ItemType.MISC, None, "Dented and cold to the touch, no matter the weather.", True, 5)
+JUNIPER = Item("Bundle of Juniper", ItemType.MISC, None, "Used for fire-starting or mild seasoning in stews.", True, 8)
+ROPE = Item("Rope Coil", ItemType.MISC, None, "Frayed at the ends, smells faintly of salt and pine.", True, 8)
+LANTERN = Item("Iron Lantern", ItemType.MISC, None, "Simple oil lamp with cracked glass patched by wire.", True, 8)
+SPADE = Item("Rusty Spade", ItemType.MISC, None, "Blade worn thin from years of digging graves or gardens.", True, 6)
+FLETCHING = Item("Fletching Kit", ItemType.MISC, None, "Pouch of feathers, arrowheads, and pitch glue.", True, 10)
+KNIFE = Item("Pocket Knife", ItemType.MISC, None, "Folded steel blade with a chipped bone handle.", True, 10)
+DICE = Item("Wooden Dice", ItemType.MISC, None, "Corners rounded from hundreds of tavern games.", True, 10)
 
 # Initialize Item Quest #
 HARKENS_POLE = Item("Harken's Pole", ItemType.QUEST, None, "Harken's old fishing pole.", True, 0)
-RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat tooth.", True)
+RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat tooth.", True, 0)
 BARK_MAP = Item("Bark Map", ItemType.QUEST, None, "A map made of the ent's bark, showing a path to Moonveil Citadel.", True, 20)
 
 # Initialize Quests #
@@ -113,7 +125,7 @@ BLEAKTHORN = POI("Bleakthorn Woods",
                  "Once a sacred grove tended by Celestine moon-priests. After the Moonfall, the grove's protective wards shattered, allowing the woods to grow unchecked. "
                  "Ancient texts refer to it as The Choir of Roots, suggesting the forest once sang in harmony with the Singing Lake before the Dayheart shattered."),
                  (5, 2),
-                 [SMALL_STONE],
+                 [STEEL_DAGGER, OLD_MAP, JUNIPER, SPADE],
                  True)
 
 MOONVEIL = POI("Moonveil Citadel",
@@ -123,8 +135,17 @@ MOONVEIL = POI("Moonveil Citadel",
                "Gravity-defying bridges sway gently but never break. Some move like living things, subtly shifting routes based on lunar phases. "
                "Vertical hanging gardens of luminous moss and moonwillow trees provide air purification and soft light."),
                (7, 4),
-               [SMALL_STONE],
+               [DICE, KNIFE, FLETCHING, ROPE, ROPE, WATERFLASK],
                False)
+
+MOONVEIL_CATACOMB = POI("Moonveil Catacombs",
+                        ("The Moonveil Catacombs are an ancient necropolis carved into the bedrock directly below Moonveil Citadel. "
+                        "Long before the Citadel's marble towers rose, this labyrinth served as a sacred burial ground for the first Celestine scholars and the founding Moonpriests. "
+                        "Over centuries of lunar eclipses and aether storms, the magical wards that once sealed the tunnels fractured, allowing moon-charged aether to seep through the crypts and awaken restless spirits. "
+                        "Narrow marble corridors engraved with lunar runes that pulse faint silver light. Water drips from the ceiling, forming pools that glow faintly under moonlight."),
+                        (7, 6),
+                        [LANTERN, OLD_MAP, OLD_MAP, SMALL_STONE, SMALL_STONE, SATCHEL, KNIFE],
+                        True)
 
 
 
@@ -153,7 +174,7 @@ HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_HP], [QUEST_H
                            floor—and a past filled with debts, alliances, and old grudges.
                             """)
 
-SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
+SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP, SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                     description="""A quick-witted half-elf bard with emerald eyes and a voice that can hush a rowdy tavern mid-brawl.
                     Sylvara wears a patchwork cloak of deep forest greens and dusky blues, each swatch telling a story of a place she has wandered.
                     She strums a weathered lute strung with silver-thread strings and always keeps a dagger hidden in her boot—“just in case the song does not work.”
@@ -161,22 +182,23 @@ SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP], [QUEST_RAT_TOOTH], 1
                     Rumor has it she is searching for a long-lost lover… or perhaps a priceless artifact she won in a wager and foolishly lost.
                     """)
 
-NERIC = Character("Neric the Wayfarer", 100, [OLD_MAP, OLD_MAP], [QUEST_BARK_MAP], 1, BLEAKTHORN, EVERDUSK_VALE, 10, 
+NERIC = Character("Neric the Wayfarer", 100, [OLD_MAP, OLD_MAP, FLETCHING], [QUEST_BARK_MAP], 1, BLEAKTHORN, EVERDUSK_VALE, 10, 
                   ("A seasoned traveler and self-proclaimed cartomancer who roams Bleakthorn Woods mapping shifting paths and magical anomalies. "
                   "Neric sells living maps that redraw themselves nightly, but their accuracy depends on both the moon's phase and the buyer's own intentions. "
                   "Wears a patched longcoat lined with pockets that emit faint glows, each pocket storing a different magical compass or ink bottle. "
                   "Claims the paths whisper to him, often pausing mid-conversation to listen to the ground."))
 
-SERAPHINE = Character(name="Seraphine Veyra", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10, 
+SERAPHINE = Character(name="Seraphine Veyra", health=100, items=[MEDIUM_HP, MEDIUM_HP, MEDIUM_HP, JUNIPER], quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10, 
                       description=("A pale, silver-eyed elf who tends the Citadel's moonlit archives. Her robes shimmer like frost on crystal, and a faint smell of lavender follows her. "
                       "Soft-spoken but relentless in pursuit of lost knowledge. Speaks in careful, poetic sentences. "
                       "Has a commanding presence about herself, she seeks out individuals who share her passions."))
 
-DORIAN = Character(name="Dorian Krail", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+DORIAN = Character(name="Dorian Krail", health=100, items=[STEEL_WARHAMMER, STEEL_SWORD, STEEL_ARMOR], quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
                    description=("Warden of Moonveil Citadel's guard. A scarred human veteran clad in half-plate etched with lunar runes. His left gauntlet bears the sigil of the Citadel's royal guard. "
-                   "Gruff, impatient, but fiercely honorable. Prefers action to words. "))
+                   "Gruff, impatient, but fiercely honorable. Prefers action to words. "
+                   "Has some good steel to trade for the right price. Dorian talks of a runed sword he lost in the Catacombs a few months back."))
 
-MORWEN = Character(name="Morwen Lyric", health=100, items=None, quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+MORWEN = Character(name="Morwen Lyric", health=100, items=[KNIFE, DICE, ROPE], quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
                    description=("An elderly half-orc priestess with luminous white hair and a silver bell-staff. She keeps the Citadel's ceremonial bells in perfect harmony. "
                    "She is warm and grandmotherly, but cryptic when speaking of omens. She tends to ring her bell-staff when she is preoccupied or nervous. "
                    "Morwen claims to know where the location of one of the Dayheart shards, but will need some help before revealing the location."))
@@ -192,16 +214,16 @@ BLUE_ENT = Enemy("Blue Ent", 50, 1, [BARK_MAP], 3, BLEAKTHORN)
 # Initialize Lists to pass to GameState() in main.py #
 ZONES = [EVERDUSK_VALE]
 
-POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL]
+POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL, MOONVEIL_CATACOMB]
 
 CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE, DORIAN, MORWEN]
 
 ENEMIES = [GIANT_RAT, LAKE_SNAKE, BLUE_ENT]
 
-ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET, STEEL_SWORD, STEEL_WARHAMMER]
-ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR]
+ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET, STEEL_DAGGER, STEEL_SWORD, STEEL_WARHAMMER, RUNED_STEEL_SWORD]
+ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR, STEEL_ARMOR]
 ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
-ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP]
+ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP, SATCHEL, WATERFLASK, JUNIPER, ROPE, LANTERN, SPADE, FLETCHING, KNIFE, DICE]
 ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP]
 
 ITEMS = ITEM_WEAPONS + ITEM_ARMORS + ITEM_CONSUMABLES + ITEM_MISC + ITEM_QUEST

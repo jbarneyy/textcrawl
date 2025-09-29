@@ -27,7 +27,7 @@ class Character():
         return f"Character: {self.name}, Health: {self.health}, Level: {self.level}, Items: {", ".join(map(Item.to_string, self.items))}, Current Location: {self.current_POI.name}, Coins/Gold: {self.coins}, Quests: {self.quests[0].name if self.quests else "None"}, Description: {self.description}"
     
 
-    def grab_item(self, grab: str):
+    def grab_item(self, item: Item):
         """Grab an item from the player/character's current POI and place it into character's inventory, if item can_pickup is true. Deletes the item from POI's list of Items.
 
         Args:
@@ -37,12 +37,11 @@ class Character():
             True if item is picked up, False if item is not picked up. Item is appended to Character.items and removed from POI.items if True.
         """
 
-        for item in self.current_POI.items:
-            if (grab.lower() == item.name.lower() and item.can_pickup):
-                self.items.append(item)
-                self.current_POI.items.remove(item)
-                return True
-            
+        if item in self.current_POI.items and item.can_pickup is True:
+            self.items.append(item)
+            self.current_POI.items.remove(item)
+            return True
+        
         return False
     
 

@@ -33,8 +33,9 @@ def call_function(function: types.FunctionCall, player: Player, game_state: Game
     """
     if (function_name == "grab_item"):
         target_item_name = function_args["Name"]
+        target_item = game_state.items[target_item_name]
 
-        result = player.grab_item(grab=target_item_name)
+        result = player.grab_item(target_item)
 
         if (result is True):
             game_state.update_gamestate()
