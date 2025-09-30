@@ -42,9 +42,21 @@ def return_runed_sword(player: Player, gamestate: GameState) -> bool:
     if (player.current_POI is gamestate.pois.get("Moonveil Citadel") and gamestate.items.get("Runed Sword Top Shard") in gamestate.characters.get("Dorian Krail").items and
         gamestate.items.get("Runed Sword Bottom Shard") in gamestate.characters.get("Dorian Krail").items):
         player.items.append(gamestate.items.get("Runed Steel Sword"))
+        gamestate.pois.get("Hollowfen Hamlet").is_open = True
         return True
     else:
         return False
+    
+def return_harmonic_bell(player: Player, gamestate: GameState) -> bool:
+    if (player.current_POI is gamestate.pois.get("Hollowfen Hamlet") and gamestate.items.get("Harmonic Bell") in gamestate.characters.get("Elder Mora").items):
+        player.items.append(gamestate.items.get("Runed Armor"))
+        gamestate.enemies["Shardbearer"] = SHARDBEARER
+        return True
+    else:
+        return False
+    
+def collect_dayshard(player: Player, gamestate: GameState) -> bool:
+    return gamestate.items.get("Dayshard") in player.items
     
 
 
@@ -63,10 +75,12 @@ RUNED_STEEL_SWORD = Item("Runed Steel Sword", ItemType.WEAPON, 25, "Steel blade 
 LEATHER_ARMOR = Item("Leather Armor", ItemType.ARMOR, 5, "Basic leather armor, smells like shit.", True, 5)
 IRON_ARMOR = Item("Iron Armor", ItemType.ARMOR, 10, "Iron armor, seems better than leather.", True, 15)
 STEEL_ARMOR = Item("Steel Armor", ItemType.ARMOR, 20, "Steel-hardened battle armor, seems effective.", True, 30)
+RUNED_ARMOR = Item("Runed Armor", ItemType.ARMOR, 35, "A perfect set of steel armor, etched with runes leaking mist.", True, 60)
 
 # Initalize Item Consumables #
 SMALL_HP = Item("Small Health Potion", ItemType.CONSUMABLE, 10, "A small health potion, used to restore HP.", True, 5)
 MEDIUM_HP = Item("Medium Health Potion", ItemType.CONSUMABLE, 25, "A medium health potion, used to restore HP.", True, 10)
+LARGE_HP = Item("Large Health Potion", ItemType.CONSUMABLE, 50, "A large health potion, used to restore HP.", True, 25)
 
 # Initialize Item Misc #
 SMALL_FISH = Item("Small Fish", ItemType.MISC, None, "A small fish.", True, 2)
@@ -88,6 +102,8 @@ RAT_TOOTH = Item("Rat Tooth", ItemType.QUEST, None, "A crusty and bloody rat too
 BARK_MAP = Item("Bark Map", ItemType.QUEST, None, "A map made of the ent's bark, showing a path to Moonveil Citadel.", True, 20)
 RUNED_SWORD_TOP = Item("Runed Sword Top Shard", ItemType.QUEST, None, "Top shard of Dorian's runed steel sword.", True, 20)
 RUNED_SWORD_BOT = Item("Runed Sword Bottom Shard", ItemType.QUEST, None, "Bottom shard of Dorian's runed steel sword.", True, 20)
+HARMONIC_BELL = Item("Harmonic Bell", ItemType.QUEST, None, "A harmonic bell, creating a frequency too high to hear.", True, 30)
+DAYSHARD = Item("Dayshard", ItemType.QUEST, None, "A faceted shard of the Dayheart - it pulses with cool energy.", True, 1000)
 
 # Initialize Quests #
 QUEST_MISTY_TANKARD = Quest("Visit Misty Tankard", "Travel to The Misty Tankard.", "Seek out The Misty Tankard.", visited_misty_tankard, False, 10, "You find your way to the Misty Tankard. The first step in a long adventure.")
@@ -106,7 +122,17 @@ QUEST_BARK_MAP = Quest("Collect Bark Map", "To unlock the path to Moonveil Citad
 QUEST_RUNED_SWORD = Quest(name="Reforge Steel-Runed Sword", description="Bring Dorian back both pieces of his runed sword.", 
                           accept_message="Dorian looks at you with steeled eyes. 'Someone like you will need a better weapon to deal with what's out there.' Find the two runed shards in the Catacombs and return them.",
                           check_complete=return_runed_sword, is_complete=False, xp_reward=100, 
-                          complete_message="Dorian breaths icy breath over the two shards and recombines them into a runed steel sword. He hands it to you gently as mist seeps off the blade.")
+                          complete_message="Dorian breaths icy breath over the two shards and recombines them into a runed steel sword. He hands it to you gently as mist seeps off the blade. The path to Hollowfen is revealed.")
+
+QUEST_DELIVER_BELL = Quest(name="Deliver Harmonic Bell", description="Deliver Morwen's Harmonic Bell to Elder Mora.",
+                           accept_message="Morwen asks that you deliver Elder Mora her Harmonic Bell. 'I do like a stiff drink, last I remember having the bell was in the Misty Tankard.' She must black out frequently.",
+                           check_complete=return_harmonic_bell, is_complete=False, xp_reward=200,
+                           complete_message=("Elder Mora rings the bell softly. You feel a shift in the air, a great disturbance emnating from the Singing Lake. Perhaps you should return to investigate.\n"
+                           "Mora hands you a piece of armor etched with intricate runes. 'For your troubles.'"))
+
+QUEST_DAYSHARD = Quest(name="Collect a Dayshard", description="Collect a Dayshard, you will need them to reforge the Dayheart.",
+                       accept_message="You have always known this path.", check_complete=collect_dayshard, is_complete=False, xp_reward=1000,
+                       complete_message="The first of many, our adventure continues. Good job on this iteration.")
 
 
 
@@ -136,7 +162,7 @@ MISTY_TANKARD = POI("The Misty Tankard",
                     "Shelves behind the bar are stocked with strange colored bottles, local brews, and curious herbal infusions. "
                     "The tavern is warm and welcoming, its walls lined with faded maps, old fishing rods, and a massive mounted trout with one missing eye."),
                     (2, 2),
-                    populate_random_items(SMALL_CONSUMABLES, SMALL_CONSUMABLES, SMALL_CONSUMABLES) + [IRON_ARMOR],
+                    populate_random_items(SMALL_CONSUMABLES, SMALL_CONSUMABLES, SMALL_CONSUMABLES) + [IRON_ARMOR] + [HARMONIC_BELL],
                     True)
 
 BLEAKTHORN = POI("Bleakthorn Woods",
@@ -168,12 +194,22 @@ MOONVEIL_CATACOMB = POI("Moonveil Catacombs",
                         [LANTERN, OLD_MAP, OLD_MAP, SMALL_STONE, SMALL_STONE, SATCHEL, KNIFE],
                         True)
 
+HOLLOWFREN = POI("Hollowfen Hamlet",
+                 ("A fog-wreathed village on the edge of a floating swamp, illuminated by glowing lantern fungi. Half the homes are built on drifting lily-rafts. "
+                 "The hamlet is one of the few places where travelers can rest before venturing deeper into the Moonveil wilds, but it is never truly safe. "
+                 "Tilted wooden houses with thatched roofs sagging under layers of mist. Rope bridges connecting stilted platforms over black, reed-choked waters. "
+                 "Lanterns burn with green swamp oil, casting a ghostly light across the walkways. Frogs and insects provide a constant, almost hypnotic chorus. "
+                 "The villagers are plagued by constant attacks from venomous insects, they require a harmonic bell to ward off the pests."),
+                 (10, 7),
+                 [ROPE, ROPE, LANTERN, KNIFE, OLD_MAP],
+                 False)
+
 
 
 
 # Initialize Zones #
 EVERDUSK_VALE = Zone("Everdusk Vale",
-            [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL],
+            [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL, MOONVEIL_CATACOMB, HOLLOWFREN],
             description=("Everdusk Vale is a land bathed in perpetual twilight, an indigo sky streaked with slow-moving auroras. "
             "Vast crystal spires float like lazy comets above the landscape, shedding shimmering aether dust that fuels both wonder and danger. "
             "Gravity feels slightly lighter; magic hums beneath every stone. 10,000 years ago it was a sunlit kingdom ruled by the Celestine Dynasty, a council of archmages who mastered Solar Magic. "
@@ -184,7 +220,7 @@ EVERDUSK_VALE = Zone("Everdusk Vale",
 
 
 # Initialize Characters #
-HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_HP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
+HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_HP, SMALL_HP], [QUEST_HARKENS_POLE], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                            description="""A grizzled, broad-shouldered dwarf with a beard like twisted iron and eyes that gleam with stubborn resolve. 
                            Once a master blacksmith of the Emberdeep Forges, he now runs the Misty Tankard tavern as both a barkeep 
                            and quiet keeper of local secrets. Harken speaks in a gravelly baritone, every word weighed like 
@@ -195,7 +231,7 @@ HARKEN_BRISTLE = Character("Harken Bristle", 100, [SMALL_HP, SMALL_HP], [QUEST_H
                            floor—and a past filled with debts, alliances, and old grudges.
                             """)
 
-SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP, SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
+SYLVARA = Character("Sylvara Reedwhistle", 100, [SMALL_HP, SMALL_HP, SMALL_HP], [QUEST_RAT_TOOTH], 1, MISTY_TANKARD, EVERDUSK_VALE, 10,
                     description="""A quick-witted half-elf bard with emerald eyes and a voice that can hush a rowdy tavern mid-brawl.
                     Sylvara wears a patchwork cloak of deep forest greens and dusky blues, each swatch telling a story of a place she has wandered.
                     She strums a weathered lute strung with silver-thread strings and always keeps a dagger hidden in her boot—“just in case the song does not work.”
@@ -219,10 +255,17 @@ DORIAN = Character(name="Dorian Krail", health=100, items=[STEEL_WARHAMMER, STEE
                    "Gruff, impatient, but fiercely honorable. Prefers action to words. "
                    "Has some good steel to trade for the right price. Dorian talks of a runed sword he lost in the Catacombs a few months back."))
 
-MORWEN = Character(name="Morwen Lyric", health=100, items=[KNIFE, DICE, ROPE], quests=None, level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
+MORWEN = Character(name="Morwen Lyric", health=100, items=[KNIFE, DICE, ROPE], quests=[QUEST_DELIVER_BELL], level=1, current_POI=MOONVEIL, current_zone=EVERDUSK_VALE, coins=10,
                    description=("An elderly half-orc priestess with luminous white hair and a silver bell-staff. She keeps the Citadel's ceremonial bells in perfect harmony. "
                    "She is warm and grandmotherly, but cryptic when speaking of omens. She tends to ring her bell-staff when she is preoccupied or nervous. "
-                   "Morwen claims to know where the location of one of the Dayheart shards, but will need some help before revealing the location."))
+                   "Morwen claims to know where the location of one of the Dayheart shards, but will need some help before revealing the location. "
+                   "She is also a very heavy drinker, and likes to frequent the Misty Tankard when she craves a stiff one."))
+
+ELDER_MORA = Character(name="Elder Mora", health=100, items=[LARGE_HP, LARGE_HP, LARGE_HP, LANTERN, OLD_MAP], quests=None, level=1, current_POI=HOLLOWFREN, current_zone=EVERDUSK_VALE, coins=20,
+                       description=("Elder Mora is the matriarch of Hollowfen Hamlet. Not through force or title, but because everyone—even the bravest trappers—defers to her knowledge of the swamps and the unseen forces dwelling there. "
+                       "She straddles the line between herbalist, hedge-witch, and wise woman, maintaining fragile pacts with the spirits of the marsh. Without her, Hollowfen would likely sink into chaos—or the bog itself. "
+                       "A stooped woman in her late sixties, hair a tangled mane of white streaked with moss-green. Wears layers of patchwork shawls that smell faintly of damp herbs and smoke. "
+                       "She is close friends with Morwen Lyric, and has been eagerly awaiting the delivery of the Harmonic Bell to ward off the plague of insects."))
 
 # Initialize Enemies #
 GIANT_RAT = Enemy("Giant Rat", 20, 1, [RAT_TOOTH], 1, LAKEFRONT)
@@ -233,23 +276,28 @@ BLUE_ENT = Enemy("Blue Ent", 50, 1, [BARK_MAP], 3, BLEAKTHORN)
 RED_ENT = Enemy("Red Ent", 50, 1, None, 3, BLEAKTHORN)
 GREEN_ENT = Enemy("Green Ent", 50, 1, None, 3, BLEAKTHORN)
 
+SMALL_WRAITH = Enemy("Wraith", 30, 1, None, 3, MOONVEIL_CATACOMB)
+SMALL_SKELETON = Enemy("Skeleton", 30, 1, None, 3, MOONVEIL_CATACOMB)
+WRAITH = Enemy("Ancient Wraith", 40, 1, [RUNED_SWORD_TOP], 4, MOONVEIL_CATACOMB)
+SKELETON = Enemy("Decaying Skeleton", 40, 1, [RUNED_SWORD_BOT], 4, MOONVEIL_CATACOMB)
 
+SHARDBEARER = Enemy("Shardbearer", 100, 5, [DAYSHARD], 5, LAKEFRONT)
 
 # Initialize Lists to pass to GameState() in main.py #
 ZONES = [EVERDUSK_VALE]
 
-POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL, MOONVEIL_CATACOMB]
+POIS = [LAKEFRONT, MISTY_TANKARD, BLEAKTHORN, MOONVEIL, MOONVEIL_CATACOMB, HOLLOWFREN]
 
-CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE, DORIAN, MORWEN]
+CHARACTERS = [HARKEN_BRISTLE, SYLVARA, NERIC, SERAPHINE, DORIAN, MORWEN, ELDER_MORA]
 
-ENEMIES = [GIANT_RAT, LAKE_SNAKE, BEAR, BLUE_ENT, RED_ENT, GREEN_ENT]
+ENEMIES = [GIANT_RAT, LAKE_SNAKE, BEAR, BLUE_ENT, RED_ENT, GREEN_ENT, SMALL_WRAITH, SMALL_SKELETON, WRAITH, SKELETON]
 
 ITEM_WEAPONS = [IRON_SWORD, IRON_DAGGER, IRON_HATCHET, STEEL_DAGGER, STEEL_SWORD, STEEL_WARHAMMER, RUNED_STEEL_SWORD]
-ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR, STEEL_ARMOR]
-ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP]
+ITEM_ARMORS = [LEATHER_ARMOR, IRON_ARMOR, STEEL_ARMOR, RUNED_ARMOR]
+ITEM_CONSUMABLES = [SMALL_HP, MEDIUM_HP, LARGE_HP]
 ITEM_MISC = [SMALL_FISH, SMALL_STONE, OLD_MAP, SATCHEL, WATERFLASK, JUNIPER, ROPE, LANTERN, SPADE, FLETCHING, KNIFE, DICE]
-ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP, RUNED_SWORD_TOP, RUNED_SWORD_BOT]
+ITEM_QUEST = [HARKENS_POLE, RAT_TOOTH, BARK_MAP, RUNED_SWORD_TOP, RUNED_SWORD_BOT, HARMONIC_BELL, DAYSHARD]
 
 ITEMS = ITEM_WEAPONS + ITEM_ARMORS + ITEM_CONSUMABLES + ITEM_MISC + ITEM_QUEST
 
-QUESTS = [QUEST_MISTY_TANKARD, QUEST_HARKENS_POLE, QUEST_RAT_TOOTH, QUEST_BARK_MAP]
+QUESTS = [QUEST_MISTY_TANKARD, QUEST_HARKENS_POLE, QUEST_RAT_TOOTH, QUEST_BARK_MAP, QUEST_RUNED_SWORD, QUEST_DELIVER_BELL, QUEST_DAYSHARD]

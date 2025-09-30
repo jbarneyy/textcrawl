@@ -35,8 +35,8 @@ def main():
 
     player_name = input("> ")
 
-    player = Player(name=player_name, health=100, items=[init.SMALL_HP, init.RUNED_SWORD_BOT, init.RUNED_SWORD_TOP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
-                     quests=[init.QUEST_MISTY_TANKARD], level=1, current_POI=init.MOONVEIL, current_zone=init.EVERDUSK_VALE, coins=10,
+    player = Player(name=player_name, health=1000, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
+                     quests=[init.QUEST_DAYSHARD, init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=10,
                      description="Our fearless adventurer.")
 
 
