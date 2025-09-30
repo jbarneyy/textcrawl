@@ -1,7 +1,7 @@
 # textcrawl
 Text based adventure game using Gemini to curate custom adventure.
 
-## SetUp
+### SetUp
 1. Clone repo into local folder.
 2. Create virtual environment using `python3 -m venv venv`
 3. Activate virtual environment `source venv/bin/activate`

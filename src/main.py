@@ -31,11 +31,11 @@ from gamestate import GameState
 
 def main():
 
-    #intro_text(intro_speed=0.03)
+    intro_text()
 
     player_name = input("> ")
 
-    player = Player(name=player_name, health=1000, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
+    player = Player(name=player_name, health=100, items=[init.SMALL_HP], armor=init.LEATHER_ARMOR, weapon=init.IRON_SWORD,
                      quests=[init.QUEST_DAYSHARD, init.QUEST_MISTY_TANKARD], level=1, current_POI=init.LAKEFRONT, current_zone=init.EVERDUSK_VALE, coins=10,
                      description="Our fearless adventurer.")
 
@@ -61,8 +61,10 @@ def main():
 
     chat_history.append(types.Content(role="model", parts=[types.Part(text=f"{response.text}")]))
 
-    #slow_print_text(response.text, 0.02)
     print(response.text)
+
+    print(("During your adventure you may find it helpful to 'search' for people / items / areas / enemies in your current location. You never know what you may discover.\n"
+            "There are also actions that you can perform as you travel through Everdusk: 'Grab/Pickup', 'List Inventory', 'Move Locations', 'Equip Weapon/Armor', 'Attack Enemy', 'Trade Character', 'Accept Quest', 'Use Item'.\n"))
 
     while True:
 
@@ -80,7 +82,7 @@ def main():
             # candidate is the first (and often only) candidate. There can be multiple candidates, we are only going to have one. #
             candidate = response.candidates[0]
 
-            print(f"Candidate Content Parts: {candidate.content.parts}\n")
+            #print(f"Candidate Content Parts: {candidate.content.parts}\n")
 
             # A part of a response is object containing different types of information. We are only interested in function_call and text. #
             #part = candidate.content.parts[0]
@@ -98,21 +100,6 @@ def main():
 
                     print(character_action + "\n", flush=True)
                     #slow_print_text(character_action)
-
-                    # except Exception as e:
-                    #     print("ENCOUNTERED FUNC_CALL ISSUE!!!!")
-                        
-                    #     system_error_message = f"You had an issue trying to complete Player's previous response and called a function in error: {e}. We are going to ask for an additonal player response and ask them to try again. " \
-                    #     f"In your next generated response explain you had an issue in a fantasy-type way. Make sure your next response defaults to a text response and does not call an additional function."
-
-                    #     chat_history.append(types.Content(role="model", parts=[types.Part(text=system_error_message)]))
-
-                    #     response = client.models.generate_content(model="gemini-2.0-flash-001", contents=chat_history, config=config)
-
-                    #     print(response.text)
-
-
-
 
                 # Logic for responding if there is not a function_call. #
                 elif part.text is not None:
@@ -167,19 +154,19 @@ def slow_print_text(text: str, delay: float = 0.015):
     sys.stdout.write("\n")
 
 
-def intro_text(intro_speed: float):
-    slow_print_text("You find yourself waking up at the Singing Lake. The last thing you remember was the sensation of falling - faster and faster - and then the feeling of cool dew and wet earth. Your head aches something fierce.\n", intro_speed)
+def intro_text():
+    print("You find yourself waking up at the Singing Lake. The last thing you remember was the sensation of falling - faster and faster - and then the feeling of cool dew and wet earth. Your head aches something fierce.\n")
 
-    slow_print_text("A voice echos in your head, it has a soothing presence. 'Welcome back'.\n", intro_speed)
+    print("A voice echos in your head, it has a soothing presence. 'Welcome back'.\n")
 
-    slow_print_text("Who are you and where am I? You ask the voice.\n", intro_speed)
+    print("Who are you and where am I? You ask the voice.\n")
 
-    slow_print_text("'You are in Everdusk Vale - a land bathed in perpetual twilight.'\n", intro_speed)
+    print("'You are in Everdusk Vale - a land bathed in perpetual twilight.'\n")
 
-    slow_print_text("You look around and see an indigo sky streaked with slow-moving auroras. Vast crystal spires float like lazy comets above the landscape, " \
-    "shedding shimmering aether dust that fuels both wonder and danger. Gravity feels slightly lighter; magic hums beneath every stone.\n", intro_speed)
+    print("You look around and see an indigo sky streaked with slow-moving auroras. Vast crystal spires float like lazy comets above the landscape, " \
+    "shedding shimmering aether dust that fuels both wonder and danger. Gravity feels slightly lighter; magic hums beneath every stone.\n")
 
-    slow_print_text("'Seek out the Dayheart - reassamble the components.' The voice commands. 'What will you call yourself on this iteration?'\n", intro_speed)
+    print("'Seek out the Dayheart - reassamble the components.' The voice commands. 'What will you call yourself on this iteration?'\n")
 
 
 def check_player_alive(player: Player) -> bool:
